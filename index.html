@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeddingBells Stories - Crafting Timeless Wedding Stories</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <style>
+        :root {
+            --color-background: #FDF8F5; /* Alabaster/Soft off-white */
+            --color-text-dark: #2C2C2C; /* Deep Charcoal */
+            --color-text-light: #555555;
+            --color-accent: #C0A080; /* Muted Gold */
+            --color-white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text-light);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        h1, h2, h3, h4 {
+            color: var(--color-text-dark);
+        }
+
+        .hero-video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.6) 100%);
+            z-index: 1;
+        }
+        
+        .hero-background-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            z-index: 0;
+        }
+        
+        #header {
+            transition: background-color 0.4s ease, backdrop-filter 0.4s ease, padding 0.4s ease;
+        }
+        
+        .header-scrolled {
+            background-color: rgba(44, 44, 44, 0.85); /* #2c2c2c with transparency */
+            backdrop-filter: blur(10px);
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav-overlay {
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        
+        .nav-overlay.open {
+            transform: translateX(0);
+        }
+        
+        .testimonial-slide {
+            display: none;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        
+        .testimonial-slide.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .gallery-item {
+            transition: transform 0.4s ease, box-shadow 0.4s ease, filter 0.4s ease;
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            filter: brightness(1.05);
+        }
+
+        /* Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Button Style */
+        .btn {
+            display: inline-block;
+            padding: 0.875rem 2.5rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: var(--color-accent);
+            color: var(--color-white);
+        }
+        .btn-primary:hover {
+            background-color: #a98c6f; /* Darker accent */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--color-white);
+            border: 1px solid var(--color-white);
+        }
+        .btn-secondary:hover {
+            background-color: var(--color-white);
+            color: var(--color-text-dark);
+        }
+
+        /* Milestone Section Styles */
+        #milestones {
+            position: relative;
+            background-image: url('https://images4.alphacoders.com/594/594993.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        #milestones::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(44, 44, 44, 0.7);
+            z-index: 1;
+        }
+
+        #milestones .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .milestone-item {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            background-image: url('data:image/png;base64,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');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        @media (min-width: 1280px) {
+            #prev-milestone {
+                left: -2rem;
+            }
+            #next-milestone {
+                right: -2rem;
+            }
+        }
+
+        /* Showcase Section Styles */
+        .showcase-card {
+            background-color: white;
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.07);
+            transition: all 0.4s ease;
+        }
+         .showcase-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Blog Section Styles */
+        .blog-post .read-more {
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-text-dark);
+            transition: color 0.3s ease;
+        }
+        .blog-post .read-more:hover {
+            color: var(--color-accent);
+        }
+        .blog-post img {
+            transition: transform 0.4s ease;
+        }
+        .blog-post:hover img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 w-full z-50 py-6">
+        <div class="container mx-auto px-6 flex justify-between items-center max-w-7xl">
+             <a href="#hero" class="text-2xl lg:text-3xl font-serif font-bold text-white z-50 tracking-wide">ORION photography</a>
+             <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-10">
+                <a href="#about" class="text-white hover:text-gray-300 transition-colors tracking-wider">About</a>
+                <a href="#portfolio" class="text-white hover:text-gray-300 transition-colors tracking-wider">Portfolio</a>
+                <a href="#blog" class="text-white hover:text-gray-300 transition-colors tracking-wider">Blog</a>
+                <a href="#milestones" class="text-white hover:text-gray-300 transition-colors tracking-wider">Milestones</a>
+                <a href="#contact" class="btn btn-secondary">Contact Us</a>
+            </nav>
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden z-50 text-white focus:outline-none">
+                <i data-lucide="menu" class="w-7 h-7"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Fullscreen Mobile Navigation Overlay -->
+    <div id="nav-overlay" class="nav-overlay fixed top-0 right-0 w-full h-full bg-[#1c1c1c] z-[60] flex items-center justify-center">
+        <button id="close-btn" class="absolute top-8 right-6 text-white focus:outline-none">
+             <i data-lucide="x" class="w-9 h-9"></i>
+        </button>
+        <nav class="text-center">
+            <ul class="space-y-8">
+                <li><a href="#hero" class="nav-link text-4xl font-serif text-white hover:text-gray-400 transition-colors duration-300">Home</a></li>
+                <li><a href="#about" class="nav-link text-4xl font-serif text-white hover:text-gray-400 transition-colors duration-300">About</a></li>
+                <li><a href="#portfolio" class="nav-link text-4xl font-serif text-white hover:text-gray-400 transition-colors duration-300">Portfolio</a></li>
+                 <li><a href="#blog" class="nav-link text-4xl font-serif text-white hover:text-gray-400 transition-colors duration-300">Blog</a></li>
+                <li><a href="#milestones" class="nav-link text-4xl font-serif text-white hover:text-gray-400 transition-colors duration-300">Milestones</a></li>
+                <li><a href="#contact" class="nav-link text-4xl font-serif text-white hover:text-gray-400 transition-colors duration-300">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="relative h-screen w-full flex items-center justify-center text-center text-white overflow-hidden">
+            <div class="hero-video-overlay"></div>
+            
+            <video 
+                class="hero-background-video"
+                src="https://videos.pexels.com/video-files/4275685/4275685-hd.mp4"
+                autoplay 
+                loop 
+                muted 
+                playsinline
+                poster="https://images.pexels.com/photos/169198/pexels-photo-169198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            ></video>
+
+            <div class="relative z-10 px-4">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif leading-tight mb-4 reveal">Timeless Wedding Stories</h1>
+                <p class="text-lg md:text-xl max-w-2xl mx-auto reveal" style="transition-delay: 0.2s;">We capture the unscripted moments, the heartfelt emotions, and the timeless essence of your love story.</p>
+            </div>
+             <a href="#showcase" class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+                <i data-lucide="arrow-down-circle" class="w-10 h-10 text-white/70"></i>
+            </a>
+        </section>
+
+        <!-- Intimate Wedding Showcase Section -->
+        <section id="showcase" class="py-24 md:py-32 relative overflow-hidden">
+            <div class="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" style="background-image: url('https://static.vecteezy.com/system/resources/previews/022/997/163/original/world-map-dots-grey-png.png'); background-position: center; background-repeat: no-repeat; background-size: cover;"></div>
+            <div class="container mx-auto px-6 max-w-7xl relative z-10">
+                <div class="grid lg:grid-cols-2 gap-16 xl:gap-24 items-center">
+                    <div class="reveal">
+                        <p class="tracking-widest uppercase text-sm mb-3">Showcase</p>
+                        <h2 class="text-4xl md:text-5xl font-serif mb-6 leading-tight">Intimate Wedding</h2>
+                        <p class="text-lg leading-relaxed mb-6">
+                            Intimate destination weddings offer an unparalleled chance to revel in the splendor of love amid an awe-inspiring panorama, enveloped by the cherished ones who matter the most. Our destination wedding photographer has mastered the art of seizing the essence of unbridled feelings and unfeigned instances that make these ceremonies so extraordinary.
+                        </p>
+                        <blockquote class="my-8 pl-6 border-l-2 border-stone-300">
+                            <p class="italic text-lg">"I like to photograph anyone before they know what their best angles are."</p>
+                            <cite class="text-sm mt-2 block not-italic">- Ellan Von Unwerth</cite>
+                        </blockquote>
+                        <a href="#contact" class="font-bold text-lg text-[var(--color-text-dark)] border-b-2 border-[var(--color-accent)] pb-1 hover:text-[var(--color-accent)] transition-colors">
+                            Make It Real
+                        </a>
+                    </div>
+                    <div class="relative min-h-[550px] lg:min-h-[600px] reveal" style="transition-delay: 0.2s;">
+                         <!-- Image 1 -->
+                        <div class="showcase-card absolute w-3/5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                            <img src="https://images.pexels.com/photos/3779792/pexels-photo-3779792.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Couple Niharika & Suvamsh" class="w-full h-auto rounded-sm object-cover">
+                            <div class="text-center py-3">
+                                <h4 class="font-bold">NIHARIKA & SUVAMSH</h4>
+                                <p class="text-xs text-gray-500">Destination: Bangalore</p>
+                            </div>
+                        </div>
+
+                         <!-- Image 4 -->
+                        <div class="showcase-card absolute w-3/5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                            <img src="https://cdn0.weddingwire.in/article-vendor-o/5446/original/1280/jpg/kerala-palakkad-wedding-photography-glareart-photography-15_15_135446_v1.jpeg" alt="Couple Niharika & Suvamsh" class="w-full h-auto rounded-sm object-cover">
+                            <div class="text-center py-3">
+                                <h4 class="font-bold">NIKHIL & SUMESH</h4>
+                                <p class="text-xs text-gray-500">Destination: Kannur</p>
+                            </div>
+                        </div>
+
+
+                        <!-- Image 2 -->
+                        <div class="showcase-card absolute w-1/2 bottom-0 left-0 z-10 transform -rotate-6">
+                            <img src="https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Couple Pavithra & Aneil" class="w-full h-auto rounded-sm object-cover">
+                             <div class="text-center py-3">
+                                <h4 class="font-bold">PAVITHRA & ANEIL</h4>
+                                <p class="text-xs text-gray-500">Destination: Mahabalipuram</p>
+                            </div>
+                        </div>
+                        <!-- Image 3 -->
+                        <div class="showcase-card absolute w-1/2 top-0 right-0 z-10 transform rotate-3">
+                            <img src="https://images.pexels.com/photos/326612/pexels-photo-326612.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Couple Shebin & Mikhiya" class="w-full h-auto rounded-sm object-cover">
+                             <div class="text-center py-3">
+                                <h4 class="font-bold">SHEBIN & MIKHIYA</h4>
+                                <p class="text-xs text-gray-500">Destination: Kochi</p>
+                            </div>
+                        </div>
+                        <!-- Image 5 -->
+                        <div class="showcase-card absolute w-3/5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                            <img src="https://img.weddingbazaar.com/shaadisaga_production/photos/pictures/008/098/336/new_medium/Snapinsta.app_377982240_673224281406264_5298942056619683596_n_1080.jpg?1706182423" alt="Couple Shebin & Mikhiya" class="w-full h-auto rounded-sm object-cover">
+                             <div class="text-center py-3">
+                                <h4 class="font-bold">SEHIN & MAYA</h4>
+                                <p class="text-xs text-gray-500">Destination: Kollam</p>
+                            </div>
+                        </div>                        
+
+                         <div class="absolute bottom-5 right-5 z-30 transform -rotate-12">
+                             <p class="text-4xl font-serif text-gray-400/80" style="font-family: 'Playfair Display', cursive;">ORION LOVE</p>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="py-24 md:py-32 bg-white">
+            <div class="container mx-auto px-6 text-center max-w-7xl">
+                <div class="reveal">
+                    <h2 class="text-4xl md:text-5xl font-serif mb-4">A Collection of Moments</h2>
+                    <p class="max-w-2xl mx-auto text-lg mb-16">Stories of love we've had the honor to capture and craft.</p>
+                </div>
+                <div class="columns-2 md:columns-3 gap-4 lg:gap-6 space-y-4 lg:space-y-6 reveal">
+                    <img class="rounded-lg gallery-item w-full" src="https://i.pinimg.com/736x/7b/ed/af/7bedaf14a4dbcea68368593132a324cf.jpg" alt="Bride and groom portrait">
+                    <img class="rounded-lg gallery-item w-full" src="https://i.pinimg.com/originals/7c/c1/01/7cc101165190dd007766df6e190e47ab.jpg" alt="Wedding ceremony photo">
+                    <img class="rounded-lg gallery-item w-full" src="https://shopzters.com/cdn/shop/articles/26951711_1978545772363175_4316278511531456662_o_1000x.jpg?v=1618865176" alt="Couple walking on a beach">
+                    <img class="rounded-lg gallery-item w-full" src="https://cdn.shopify.com/s/files/1/2382/3215/t/5/assets/26962158_1978192842398468_5663725857726039367_o.jpg?v=1" alt="Wedding rings detail shot">
+                    <img class="rounded-lg gallery-item w-full" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWnbPQxidbVSoQ2tZFGaSC6h91nSu8hSKWzH7R404yhIQm_1lazLrp76BWLKixScsJu5g&usqp=CAU" alt="Romantic couple embrace">
+                    <img class="rounded-lg gallery-item w-full" src="https://www.keralatourism.org/images/newsbytes/large/kerala_as_a_popular_wedding_destination20240731093333_2243_1.jpg" alt="Joyful wedding celebration">
+                    <img class="rounded-lg gallery-item w-full" src="https://thetalesoftradition.com/wp-content/uploads/2023/12/Saptapadi_-Thali-1024x681.jpg" alt="Wedding rings detail shot">
+                    <img class="rounded-lg gallery-item w-full" src="https://thetalesoftradition.com/wp-content/uploads/2023/12/ABI0914-768x1154.jpg" alt="Romantic couple embrace">
+                    <img class="rounded-lg gallery-item w-full" src="https://eventsmanagementkerala.com/wp-content/uploads/2025/03/Sreejith-Anthara4-04-11_14-24-16-009-1024x676.webp" alt="Joyful wedding celebration">
+                </div>
+            </div>
+        </section>
+        <!-- About Us Section -->
+        <section id="about" class="py-24 md:py-32">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="reveal">
+                        <img src="https://crystallinestudio.com/blogimages/Crystalline-photography-50.jpg" alt="Wedding Bells Stories Team Portrait" class="rounded-lg shadow-xl w-full h-auto object-cover">
+                    </div>
+                    <div class="reveal" style="transition-delay: 0.2s;">
+                        <h2 class="text-4xl md:text-5xl font-serif mb-6">Our Story, Your Story</h2>
+                        <p class="mb-5 text-lg leading-relaxed">We are John & Jane, a husband and wife team with a shared passion for visual storytelling. For us, filming weddings is more than a profession—it's the privilege of witnessing and preserving the unique joy of two people committing to forever.</p>
+                        <p class="leading-relaxed text-lg mb-6">Our approach blends documentary authenticity with fine art cinematography. We focus on capturing genuine emotions and candid moments, creating a film that feels both timeless and true to you.</p>
+                        <a href="#contact" class="btn btn-primary">Let's Create Together</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Blog Section -->
+        <section id="blog" class="py-24 md:py-32 bg-white">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="flex flex-col md:flex-row justify-between items-start mb-16 reveal">
+                    <h2 class="text-4xl md:text-5xl font-serif mb-8 md:mb-0 leading-tight">READ<br>OUR BLOG</h2>
+                    <blockquote class="max-w-sm text-right text-gray-500 italic mt-2 self-end">
+                        <p>"Your photography is a record of your living, for anyone who really sees."</p>
+                        <cite class="not-italic block mt-2 text-sm">- Paul Strand</cite>
+                    </blockquote>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 reveal" style="transition-delay: 0.2s;">
+                    <!-- Blog Post 1 -->
+                    <div class="blog-post">
+                        <a href="#" class="block overflow-hidden mb-6 rounded">
+                           <img src="https://images.pexels.com/photos/3014856/pexels-photo-3014856.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Soumya & Phalgun" class="w-full h-80 object-cover">
+                        </a>
+                        <h4 class="text-xl font-serif font-bold mb-1">SOUMYA & PHALGUN</h4>
+                        <p class="text-sm text-gray-500 mb-4">Soulmate at first sight</p>
+                        <p class="mb-4 text-sm leading-relaxed">We were in Mysore to document the wedding of Soumya and Phalgun, both hailing from Mysore. The big day of Soumya and Phalgun was less pomp and more age-old Kannada traditions.</p>
+                        <a href="#" class="read-more text-sm">READ MORE</a>
+                    </div>
+                    <!-- Blog Post 2 -->
+                    <div class="blog-post">
+                         <a href="#" class="block overflow-hidden mb-6 rounded">
+                           <img src="https://images.pexels.com/photos/169190/pexels-photo-169190.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sherlin & Linakar" class="w-full h-80 object-cover">
+                        </a>
+                        <h4 class="text-xl font-serif font-bold mb-1">SHERLIN & LINAKAR</h4>
+                        <p class="text-sm text-gray-500 mb-4">When you find your secret keeper for eternity</p>
+                        <p class="mb-4 text-sm leading-relaxed">Sherlin and Linakar exchanged their wedding vows amidst the awe-inspiring ambience of Fort Kochi Church. Through our lens, we captured their transition from two different people to one.</p>
+                        <a href="#" class="read-more text-sm">READ MORE</a>
+                    </div>
+                    <!-- Blog Post 3 -->
+                    <div class="blog-post">
+                        <a href="#" class="block overflow-hidden mb-6 rounded relative">
+                            <img src="https://images.pexels.com/photos/2253870/pexels-photo-2253870.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Niranjana & Niranj" class="w-full h-80 object-cover">
+                             <div class="absolute bottom-4 right-0 bg-gray-900/80 text-white py-2 px-6 text-sm tracking-widest">
+                                NIRANJANA & NIRANJ
+                            </div>
+                        </a>
+                        <h4 class="text-xl font-serif font-bold mb-1">NIRANJANA & NIRANJ</h4>
+                        <p class="text-sm text-gray-500 mb-4">After you entered my life I never looked back</p>
+                        <p class="mb-4 text-sm leading-relaxed">December was in full swing when the families of Niranj and Niranjana came together for their d-day in the vibrant city of Kochi. The couple was made for each other.</p>
+                        <a href="#" class="read-more text-sm">READ MORE</a>
+                    </div>
+                    <!-- Blog Post 4 -->
+                    <div class="blog-post">
+                         <a href="#" class="block overflow-hidden mb-6 rounded">
+                           <img src="https://thetalesoftradition.com/wp-content/uploads/2025/01/BID09710-819x1024.jpg" alt="Shebin & Mikhiya" class="w-full h-80 object-cover">
+                        </a>
+                        <h4 class="text-xl font-serif font-bold mb-1">SHEBIN & MIKHIYA</h4>
+                        <p class="text-sm text-gray-500 mb-4">The Still, Quiet Frames of a Beautiful Beginning</p>
+                        <p class="mb-4 text-sm leading-relaxed">We believe that a wedding is a beautiful beginning of a new life. Here is a glimpse of Shebin and Mikhiya's beautiful story, captured with love and care by our team.</p>
+                        <a href="#" class="read-more text-sm">READ MORE</a>
+                    </div>
+                </div>
+                <div class="flex justify-center mt-16 space-x-2 reveal">
+                    <span class="w-2 h-2 rounded-full bg-gray-300"></span>
+                    <span class="w-2 h-2 rounded-full bg-gray-300"></span>
+                    <span class="w-3 h-2 rounded-full bg-[var(--color-accent)]"></span>
+                    <span class="w-2 h-2 rounded-full bg-gray-300"></span>
+                    <span class="w-2 h-2 rounded-full bg-gray-300"></span>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Milestones Section -->
+        <section id="milestones" class="py-24 md:py-32 overflow-hidden">
+            <div class="container mx-auto px-6 text-center max-w-7xl">
+                <div class="reveal">
+                    <h3 class="text-sm tracking-[0.3em] uppercase text-stone-300">ORION photography</h3>
+                    <h2 class="text-4xl md:text-5xl font-serif mb-16 text-white">Milestone</h2>
+                </div>
+                <div id="milestone-slider" class="relative max-w-7xl mx-auto reveal">
+                    <div class="overflow-hidden">
+                        <div id="milestone-track" class="flex transition-transform duration-500 ease-in-out">
+                             <!-- Slide 1 -->
+                            <div class="milestone-slide w-full lg:w-1/4 flex-shrink-0 px-4">
+                                <div class="milestone-item mx-auto flex flex-col justify-center items-center text-center p-6">
+                                    <p class="text-sm mb-1 text-stone-300">Milestone</p>
+                                    <p class="text-5xl font-bold font-serif text-white">2014</p>
+                                    <p class="text-lg mb-4 text-stone-300">July</p>
+                                    <p class="text-sm leading-relaxed px-2 text-stone-200">The idea of Wedding Bells was born with a vision to capture once-in-a-lifetime events.</p>
+                                </div>
+                            </div>
+                            <!-- Slide 2 -->
+                            <div class="milestone-slide w-full lg:w-1/4 flex-shrink-0 px-4">
+                                <div class="milestone-item mx-auto flex flex-col justify-center items-center text-center p-6">
+                                    <p class="text-sm mb-1 text-stone-300">Milestone</p>
+                                    <p class="text-5xl font-bold font-serif text-white">2014</p>
+                                    <p class="text-lg mb-4 text-stone-300">October</p>
+                                    <p class="text-sm leading-relaxed px-2 text-stone-200">Launched our company and started documenting raw, emotion-filled wedding moments.</p>
+                                </div>
+                            </div>
+                            <!-- Slide 3 -->
+                            <div class="milestone-slide w-full lg:w-1/4 flex-shrink-0 px-4">
+                                <div class="milestone-item mx-auto flex flex-col justify-center items-center text-center p-6">
+                                    <p class="text-sm mb-1 text-stone-300">Milestone</p>
+                                    <p class="text-5xl font-bold font-serif text-white">2020</p>
+                                    <p class="text-lg mb-4 text-stone-300">January</p>
+                                    <p class="text-sm leading-relaxed px-2 text-stone-200">We were honored to be Canon Maestro, which was a feather in our cap.</p>
+                                </div>
+                            </div>
+                            <!-- Slide 4 -->
+                            <div class="milestone-slide w-full lg:w-1/4 flex-shrink-0 px-4">
+                                <div class="milestone-item mx-auto flex flex-col justify-center items-center text-center p-6">
+                                    <p class="text-sm mb-1 text-stone-300">Milestone</p>
+                                    <p class="text-5xl font-bold font-serif text-white">2023</p>
+                                    <p class="text-lg mb-4 text-stone-300">January</p>
+                                    <p class="text-sm leading-relaxed px-2 text-stone-200">We have completed 2500 projects so far, keeping the memories alive for decades.</p>
+                                </div>
+                            </div>
+                             <!-- Slide 1 -->
+                            <div class="milestone-slide w-full lg:w-1/4 flex-shrink-0 px-4">
+                                <div class="milestone-item mx-auto flex flex-col justify-center items-center text-center p-6">
+                                    <p class="text-sm mb-1 text-stone-300">Milestone</p>
+                                    <p class="text-5xl font-bold font-serif text-white">2022</p>
+                                    <p class="text-lg mb-4 text-stone-300">July</p>
+                                    <p class="text-sm leading-relaxed px-2 text-stone-200">The idea of Wedding Bells was born with a vision to capture once-in-a-lifetime events.</p>
+                                </div>
+                            </div>
+                            <!-- Slide 2 -->
+                            <div class="milestone-slide w-full lg:w-1/4 flex-shrink-0 px-4">
+                                <div class="milestone-item mx-auto flex flex-col justify-center items-center text-center p-6">
+                                    <p class="text-sm mb-1 text-stone-300">Milestone</p>
+                                    <p class="text-5xl font-bold font-serif text-white">2025</p>
+                                    <p class="text-lg mb-4 text-stone-300">October</p>
+                                    <p class="text-sm leading-relaxed px-2 text-stone-200">Launched our company and started documenting raw, emotion-filled wedding moments.</p>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <button id="prev-milestone" class="absolute top-1/2 -translate-y-1/2 -left-2 sm:left-0 text-white/70 hover:text-white transition-colors transition-opacity duration-300">
+                        <i data-lucide="chevron-left-circle" class="w-9 h-9"></i>
+                    </button>
+                    <button id="next-milestone" class="absolute top-1/2 -translate-y-1/2 -right-2 sm:right-0 text-white/70 hover:text-white transition-colors transition-opacity duration-300">
+                        <i data-lucide="chevron-right-circle" class="w-9 h-9"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-24 md:py-32 bg-white overflow-hidden">
+             <div class="container mx-auto px-6 text-center max-w-7xl">
+                <div class="reveal">
+                    <h2 class="text-4xl md:text-5xl font-serif mb-16">Words of Love</h2>
+                </div>
+                <div class="relative max-w-3xl mx-auto reveal">
+                    <i data-lucide="quote" class="w-16 h-16 text-stone-200 absolute -top-8 left-1/2 -translate-x-1/2"></i>
+                    <div id="testimonial-container" class="overflow-hidden min-h-[320px]">
+                        <div class="testimonial-slide active">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop" alt="Profile photo of Sarah" class="w-24 h-24 rounded-full object-cover mx-auto mb-6 shadow-md">
+                            <p class="text-xl lg:text-2xl font-serif italic mb-6">"We are speechless! The film perfectly captured the emotion and joy of our day. Thank you for creating a masterpiece we'll cherish forever."</p>
+                            <h4 class="font-bold text-lg tracking-wider uppercase">- Sarah & Michael</h4>
+                        </div>
+                        <div class="testimonial-slide">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop" alt="Profile photo of Emily" class="w-24 h-24 rounded-full object-cover mx-auto mb-6 shadow-md">
+                            <p class="text-xl lg:text-2xl font-serif italic mb-6">"The wedding film is pure magic. It's so much more than we ever expected. They are true artists and professionals, and made us feel so at ease."</p>
+                            <h4 class="font-bold text-lg tracking-wider uppercase">- Emily & James</h4>
+                        </div>
+                        <div class="testimonial-slide">
+                             <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop" alt="Profile photo of Jessica" class="w-24 h-24 rounded-full object-cover mx-auto mb-6 shadow-md">
+                            <p class="text-xl lg:text-2xl font-serif italic mb-6">"From our first call to the final delivery, the experience was seamless. Our photos are stunning, and we're so grateful for their incredible work!"</p>
+                            <h4 class="font-bold text-lg tracking-wider uppercase">- Jessica & Daniel</h4>
+                        </div>
+                    </div>
+                    <button id="prev-testimonial" class="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-20 text-gray-400 hover:text-[var(--color-accent)] transition-colors">
+                        <i data-lucide="chevron-left-circle" class="w-9 h-9"></i>
+                    </button>
+                    <button id="next-testimonial" class="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-20 text-gray-400 hover:text-[var(--color-accent)] transition-colors">
+                         <i data-lucide="chevron-right-circle" class="w-9 h-9"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact / Footer -->
+        <footer id="contact" class="bg-[#2C2C2C] text-white py-24">
+            <div class="container mx-auto px-6 text-center max-w-7xl">
+                <div class="reveal">
+                    <h2 class="text-4xl md:text-5xl font-serif mb-4">Tell Us Your Story</h2>
+                    <p class="text-lg max-w-2xl mx-auto mb-10 text-gray-300">Planning your wedding? We would be honored to be a part of it. Let's start the conversation.</p>
+                    <a href="mailto:hello@weddingbellsstories.com" class="btn btn-primary text-base">orionphotography@gmail.com</a>
+                    <div class="flex justify-center space-x-6 mt-16 mb-8">
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors"><i data-lucide="facebook" class="w-6 h-6"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors"><i data-lucide="youtube" class="w-6 h-6"></i></a>
+                    </div>
+                     <p class="text-sm text-gray-500">&copy; <span id="year"></span> ORION photography. All Rights Reserved.Powered by DEVCOTEL</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Lucide Icons
+            lucide.createIcons();
+
+            // --- Header Scroll Animation ---
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('header-scrolled');
+                } else {
+                    header.classList.remove('header-scrolled');
+                }
+            });
+
+            // --- Mobile Menu ---
+            const menuBtn = document.getElementById('menu-btn');
+            const closeBtn = document.getElementById('close-btn');
+            const navOverlay = document.getElementById('nav-overlay');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const openNav = () => navOverlay.classList.add('open');
+            const closeNav = () => navOverlay.classList.remove('open');
+            
+            menuBtn.addEventListener('click', openNav);
+            closeBtn.addEventListener('click', closeNav);
+            navLinks.forEach(link => link.addEventListener('click', closeNav));
+
+            // --- Testimonial Slider ---
+            const slides = document.querySelectorAll('.testimonial-slide');
+            const prevBtn = document.getElementById('prev-testimonial');
+            const nextBtn = document.getElementById('next-testimonial');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            if (slides.length > 0) {
+                nextBtn.addEventListener('click', nextSlide);
+                prevBtn.addEventListener('click', prevSlide);
+                let testimonialInterval = setInterval(nextSlide, 7000);
+                showSlide(currentSlide);
+            }
+
+             // --- Milestone Slider ---
+            const milestoneSlider = document.getElementById('milestone-slider');
+            if (milestoneSlider) {
+                const track = document.getElementById('milestone-track');
+                const milestoneSlides = Array.from(track.children);
+                const nextButton = document.getElementById('next-milestone');
+                const prevButton = document.getElementById('prev-milestone');
+                
+                let currentIndex = 0;
+                
+                const updateSlider = () => {
+                    if (milestoneSlides.length === 0) return;
+
+                    // Use a short timeout to let the browser calculate layout first
+                    setTimeout(() => {
+                        const slideWidth = milestoneSlides[0].getBoundingClientRect().width;
+                        const containerWidth = track.parentElement.offsetWidth;
+                        const slidesInView = Math.max(1, Math.round(containerWidth / slideWidth));
+
+                        if (isNaN(slideWidth) || slideWidth <= 0) {
+                            return; // Exit if width is not calculated
+                        }
+                        
+                        const maxIndex = milestoneSlides.length - slidesInView;
+                        
+                        // Clamp index to valid range
+                        currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
+
+                        track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+
+                        // Toggle button visibility
+                        prevButton.classList.toggle('opacity-0', currentIndex === 0);
+                        prevButton.classList.toggle('pointer-events-none', currentIndex === 0);
+                        
+                        nextButton.classList.toggle('opacity-0', currentIndex >= maxIndex);
+                        nextButton.classList.toggle('pointer-events-none', currentIndex >= maxIndex);
+                    }, 50);
+                };
+                
+                nextButton.addEventListener('click', () => {
+                    const slideWidth = milestoneSlides[0].getBoundingClientRect().width;
+                    const containerWidth = track.parentElement.offsetWidth;
+                    const slidesInView = Math.max(1, Math.round(containerWidth / slideWidth));
+                    const maxIndex = milestoneSlides.length - slidesInView;
+
+                    if (currentIndex < maxIndex) {
+                        currentIndex++;
+                        updateSlider();
+                    }
+                });
+
+                prevButton.addEventListener('click', () => {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        updateSlider();
+                    }
+                });
+                
+                window.addEventListener('resize', updateSlider);
+                updateSlider(); // Initial setup
+            }
+
+            // --- Scroll Reveal Animation ---
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                revealElements.forEach(el => {
+                    const elementTop = el.getBoundingClientRect().top;
+                    const elementVisible = 100; // px from bottom to trigger animation
+                    if (elementTop < windowHeight - elementVisible) {
+                        el.classList.add('visible');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); // Trigger once on load
+
+            // --- Set current year in footer ---
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
