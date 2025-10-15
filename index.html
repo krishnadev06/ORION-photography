@@ -25,6 +25,16 @@
             --color-white: #FFFFFF;
         }
 
+        html {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        html::-webkit-scrollbar {
+            display: none;
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--color-background);
@@ -110,6 +120,15 @@
             filter: brightness(1.05);
         }
 
+        /* Portfolio Scroll Container */
+        .portfolio-scroll-container {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        .portfolio-scroll-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
         /* Scroll Reveal Animations */
         .reveal {
             opacity: 0;
@@ -153,6 +172,35 @@
             color: var(--color-text-dark);
         }
 
+        /* About Section Styles */
+        #about {
+            position: relative;
+            background-image: url('https://img.freepik.com/premium-photo/colorful-image-background-with-colors-colors-colors_889056-245946.jpg?w=360');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        #about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(44, 44, 44, 0.75);
+            z-index: 1;
+        }
+        #about .container {
+            position: relative;
+            z-index: 2;
+        }
+        #about h2 {
+            color: var(--color-white);
+        }
+        #about p {
+            color: #e5e7eb; /* Tailwind's gray-200 for soft white text */
+        }
+
         /* Milestone Section Styles */
         #milestones {
             position: relative;
@@ -182,7 +230,7 @@
             position: relative;
             width: 280px;
             height: 280px;
-            background-image: url('data:image/png;base64,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');
+            background-image: url('data:image/png;base64,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');
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
@@ -367,38 +415,31 @@
 
         <!-- Portfolio Section -->
         <section id="portfolio" class="py-24 md:py-32 bg-white">
-            <div class="container mx-auto px-6 text-center max-w-7xl">
-                <div class="reveal">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="text-center reveal">
                     <h2 class="text-4xl md:text-5xl font-serif mb-4">A Collection of Moments</h2>
                     <p class="max-w-2xl mx-auto text-lg mb-16">Stories of love we've had the honor to capture and craft.</p>
                 </div>
-                <div class="columns-2 md:columns-3 gap-4 lg:gap-6 space-y-4 lg:space-y-6 reveal">
-                    <img class="rounded-lg gallery-item w-full" src="https://i.pinimg.com/736x/7b/ed/af/7bedaf14a4dbcea68368593132a324cf.jpg" alt="Bride and groom portrait">
-                    <img class="rounded-lg gallery-item w-full" src="https://i.pinimg.com/originals/7c/c1/01/7cc101165190dd007766df6e190e47ab.jpg" alt="Wedding ceremony photo">
-                    <img class="rounded-lg gallery-item w-full" src="https://shopzters.com/cdn/shop/articles/26951711_1978545772363175_4316278511531456662_o_1000x.jpg?v=1618865176" alt="Couple walking on a beach">
-                    <img class="rounded-lg gallery-item w-full" src="https://cdn.shopify.com/s/files/1/2382/3215/t/5/assets/26962158_1978192842398468_5663725857726039367_o.jpg?v=1" alt="Wedding rings detail shot">
-                    <img class="rounded-lg gallery-item w-full" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWnbPQxidbVSoQ2tZFGaSC6h91nSu8hSKWzH7R404yhIQm_1lazLrp76BWLKixScsJu5g&usqp=CAU" alt="Romantic couple embrace">
-                    <img class="rounded-lg gallery-item w-full" src="https://www.keralatourism.org/images/newsbytes/large/kerala_as_a_popular_wedding_destination20240731093333_2243_1.jpg" alt="Joyful wedding celebration">
-                    <img class="rounded-lg gallery-item w-full" src="https://thetalesoftradition.com/wp-content/uploads/2023/12/Saptapadi_-Thali-1024x681.jpg" alt="Wedding rings detail shot">
-                    <img class="rounded-lg gallery-item w-full" src="https://thetalesoftradition.com/wp-content/uploads/2023/12/ABI0914-768x1154.jpg" alt="Romantic couple embrace">
-                    <img class="rounded-lg gallery-item w-full" src="https://eventsmanagementkerala.com/wp-content/uploads/2025/03/Sreejith-Anthara4-04-11_14-24-16-009-1024x676.webp" alt="Joyful wedding celebration">
+                <div class="flex items-start gap-4 lg:gap-6 overflow-x-auto pb-4 reveal portfolio-scroll-container">
+                    <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="https://i.pinimg.com/736x/7b/ed/af/7bedaf14a4dbcea68368593132a324cf.jpg" alt="Bride and groom portrait">
+                    <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="https://i.pinimg.com/originals/7c/c1/01/7cc101165190dd007766df6e190e47ab.jpg" alt="Wedding ceremony photo">
+                    <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="https://shopzters.com/cdn/shop/articles/26951711_1978545772363175_4316278511531456662_o_1000x.jpg?v=1618865176" alt="Couple walking on a beach">
+                    <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="https://cdn.shopify.com/s/files/1/2382/3215/t/5/assets/26962158_1978192842398468_5663725857726039367_o.jpg?v=1" alt="Wedding rings detail shot">
+                    <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWnbPQxidbVSoQ2tZFGaSC6h91nSu8hSKWzH7R404yhIQm_1lazLrp76BWLKixScsJu5g&usqp=CAU" alt="Romantic couple embrace">
+                    <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="https://www.keralatourism.org/images/newsbytes/large/kerala_as_a_popular_wedding_destination20240731093333_2243_1.jpg" alt="Joyful wedding celebration">
+                    <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="https://thetalesoftradition.com/wp-content/uploads/2023/12/Saptapadi_-Thali-1024x681.jpg" alt="Wedding rings detail shot">
+                    <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="https://thetalesoftradition.com/wp-content/uploads/2023/12/ABI0914-768x1154.jpg" alt="Romantic couple embrace">
+                    <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="https://eventsmanagementkerala.com/wp-content/uploads/2025/03/Sreejith-Anthara4-04-11_14-24-16-009-1024x676.webp" alt="Joyful wedding celebration">
                 </div>
             </div>
         </section>
         <!-- About Us Section -->
         <section id="about" class="py-24 md:py-32">
-            <div class="container mx-auto px-6 max-w-7xl">
-                <div class="grid lg:grid-cols-2 gap-16 items-center">
-                    <div class="reveal">
-                        <img src="https://crystallinestudio.com/blogimages/Crystalline-photography-50.jpg" alt="Wedding Bells Stories Team Portrait" class="rounded-lg shadow-xl w-full h-auto object-cover">
-                    </div>
-                    <div class="reveal" style="transition-delay: 0.2s;">
-                        <h2 class="text-4xl md:text-5xl font-serif mb-6">Our Story, Your Story</h2>
-                        <p class="mb-5 text-lg leading-relaxed">We are John & Jane, a husband and wife team with a shared passion for visual storytelling. For us, filming weddings is more than a profession—it's the privilege of witnessing and preserving the unique joy of two people committing to forever.</p>
-                        <p class="leading-relaxed text-lg mb-6">Our approach blends documentary authenticity with fine art cinematography. We focus on capturing genuine emotions and candid moments, creating a film that feels both timeless and true to you.</p>
-                        <a href="#contact" class="btn btn-primary">Let's Create Together</a>
-                    </div>
-                </div>
+            <div class="container mx-auto px-6 max-w-3xl text-center reveal">
+                <h2 class="text-4xl md:text-5xl font-serif mb-6">Our Story, Your Story</h2>
+                <p class="mb-5 text-lg leading-relaxed">We are John & Jane, a husband and wife team with a shared passion for visual storytelling. For us, filming weddings is more than a profession—it's the privilege of witnessing and preserving the unique joy of two people committing to forever.</p>
+                <p class="leading-relaxed text-lg mb-8">Our approach blends documentary authenticity with fine art cinematography. We focus on capturing genuine emotions and candid moments, creating a film that feels both timeless and true to you.</p>
+                <a href="#contact" class="btn btn-primary">Let's Create Together</a>
             </div>
         </section>
         <!-- Blog Section -->
