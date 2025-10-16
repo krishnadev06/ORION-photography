@@ -466,7 +466,7 @@
                     </div>
                     <div class="relative reveal order-first lg:order-last" style="transition-delay: 0.2s;">
                      <img src="https://lh3.googleusercontent.com/p/AF1QipP9P9yxBXtVvyzCR8_DfmZWiw_QIAcJMXr-TtPQ=s1360-w1360-h1020-rw"></img>
-                     
+                     <div class="absolute -bottom-4 -right-4 w-48 h-48 bg-[var(--color-background)] rounded-lg"></div>
                     </div>
                 </div>
             </div>
@@ -695,7 +695,7 @@
             <div id="contact-success-message" class="hidden text-center py-10">
                 <i data-lucide="check-circle-2" class="w-16 h-16 text-green-500 mx-auto mb-4"></i>
                 <h2 class="text-2xl font-serif mb-2">Thank You!</h2>
-                <p class="text-gray-600">Your message has been sent. We'll be in touch shortly.</p>
+                <p class="text-gray-600">Redirecting to WhatsApp...</p>
             </div>
         </div>
     </div>
@@ -1004,8 +1004,21 @@
             
             contactForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                // In a real application, you would handle the form submission here (e.g., send to an API endpoint).
-                // For now, we'll just show the success message.
+                
+                const name = document.getElementById('contact-name').value;
+                const email = document.getElementById('contact-email').value;
+                const phone = document.getElementById('contact-phone').value;
+                const message = document.getElementById('contact-message').value;
+
+                const waMessage = `Hello, I'm contacting you from the Orion Photography website.\n\n*Name:* ${name}\n*Email:* ${email}\n*Phone:* ${phone}\n\n*Message:*\n${message}`;
+                const encodedMessage = encodeURIComponent(waMessage);
+                const waNumber = '7593038781';
+                const whatsappUrl = `https://wa.me/${waNumber}?text=${encodedMessage}`;
+
+                // Open WhatsApp in a new tab
+                window.open(whatsappUrl, '_blank');
+
+                // Show success message
                 contactFormContainer.classList.add('hidden');
                 contactSuccessMessage.classList.remove('hidden');
                 
