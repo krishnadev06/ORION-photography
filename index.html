@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ORION_photography [○]- Crafting Timeless Wedding Stories</title>
+    <title>WeddingBells Stories - Crafting Timeless Wedding Stories</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,6 +15,9 @@
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
         :root {
@@ -230,8 +233,8 @@
             position: relative;
             width: 280px;
             height: 280px;
-            background-image: url('data:image/png;base64,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');
             background-size: contain;
+            background-image: url('');
             background-position: center;
             background-repeat: no-repeat;
         }
@@ -274,6 +277,16 @@
         }
         .blog-post:hover img {
             transform: scale(1.05);
+        }
+
+        @keyframes shake {
+          10%, 90% { transform: translate3d(-1px, 0, 0); }
+          20%, 80% { transform: translate3d(2px, 0, 0); }
+          30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+          40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+        .shake {
+          animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
         }
     </style>
 </head>
@@ -327,13 +340,13 @@
                 loop 
                 muted 
                 playsinline
-                poster="https://images.pexels.com/photos/169198/pexels-photo-169198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                poster="https://lh3.googleusercontent.com/gps-cs-s/AC9h4npq5aEiMv4CELuF0RIjMh-QKYXKxPmQfXKJ831_7Nt1c-NMTxlixrXCizWUEt-f6sAOG3R_o4Gs74G7EiWelA1Zb-0OlF6LN9lytAK14imqTU5fvRTFGAqppRX_S4j8b1x-T9FL=s1360-w1360-h1020-rw"
             ></video>
 
             <div class="relative z-10 px-4">
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif leading-tight mb-4 reveal"><b>Timeless Wedding Stories</b></h1>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif leading-tight mb-4 reveal">Timeless Wedding Stories</h1>
                 <p class="text-lg md:text-xl max-w-2xl mx-auto reveal" style="transition-delay: 0.2s;">We capture the unscripted moments, the heartfelt emotions, and the timeless essence of your love story.</p>
-               <h1 class="text-lg md:text-xl max-w-2xl mx-auto reveal">ORION photography</h1>
+                <h1 class="text-lg md:text-xl max-w-2xl mx-auto reveal">ORION photography</h1>
             </div>
              <a href="#showcase" class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 animate-bounce">
                 <i data-lucide="arrow-down-circle" class="w-10 h-10 text-white/70"></i>
@@ -421,16 +434,8 @@
                     <h2 class="text-4xl md:text-5xl font-serif mb-4">A Collection of Moments</h2>
                     <p class="max-w-2xl mx-auto text-lg mb-16">Stories of love we've had the honor to capture and craft.</p>
                 </div>
-                <div class="flex items-start gap-4 lg:gap-6 overflow-x-auto pb-4 reveal portfolio-scroll-container">
-                    <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="https://i.pinimg.com/736x/7b/ed/af/7bedaf14a4dbcea68368593132a324cf.jpg" alt="Bride and groom portrait">
-                    <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="https://i.pinimg.com/originals/7c/c1/01/7cc101165190dd007766df6e190e47ab.jpg" alt="Wedding ceremony photo">
-                    <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="https://shopzters.com/cdn/shop/articles/26951711_1978545772363175_4316278511531456662_o_1000x.jpg?v=1618865176" alt="Couple walking on a beach">
-                    <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="https://cdn.shopify.com/s/files/1/2382/3215/t/5/assets/26962158_1978192842398468_5663725857726039367_o.jpg?v=1" alt="Wedding rings detail shot">
-                    <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWnbPQxidbVSoQ2tZFGaSC6h91nSu8hSKWzH7R404yhIQm_1lazLrp76BWLKixScsJu5g&usqp=CAU" alt="Romantic couple embrace">
-                    <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="https://www.keralatourism.org/images/newsbytes/large/kerala_as_a_popular_wedding_destination20240731093333_2243_1.jpg" alt="Joyful wedding celebration">
-                    <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="https://thetalesoftradition.com/wp-content/uploads/2023/12/Saptapadi_-Thali-1024x681.jpg" alt="Wedding rings detail shot">
-                    <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="https://thetalesoftradition.com/wp-content/uploads/2023/12/ABI0914-768x1154.jpg" alt="Romantic couple embrace">
-                    <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="https://eventsmanagementkerala.com/wp-content/uploads/2025/03/Sreejith-Anthara4-04-11_14-24-16-009-1024x676.webp" alt="Joyful wedding celebration">
+                <div id="gallery-container" class="flex items-start gap-4 lg:gap-6 overflow-x-auto pb-4 reveal portfolio-scroll-container">
+                    <!-- Gallery items will be loaded here from Supabase -->
                 </div>
             </div>
         </section>
@@ -453,50 +458,8 @@
                         <cite class="not-italic block mt-2 text-sm">- Paul Strand</cite>
                     </blockquote>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 reveal" style="transition-delay: 0.2s;">
-                    <!-- Blog Post 1 -->
-                    <div class="blog-post">
-                        <a href="#" class="block overflow-hidden mb-6 rounded">
-                           <img src="https://images.pexels.com/photos/3014856/pexels-photo-3014856.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Soumya & Phalgun" class="w-full h-80 object-cover">
-                        </a>
-                        <h4 class="text-xl font-serif font-bold mb-1">SOUMYA & PHALGUN</h4>
-                        <p class="text-sm text-gray-500 mb-4">Soulmate at first sight</p>
-                        <p class="mb-4 text-sm leading-relaxed">We were in Mysore to document the wedding of Soumya and Phalgun, both hailing from Mysore. The big day of Soumya and Phalgun was less pomp and more age-old Kannada traditions.</p>
-                        <a href="#" class="read-more text-sm">READ MORE</a>
-                    </div>
-                    <!-- Blog Post 2 -->
-                    <div class="blog-post">
-                         <a href="#" class="block overflow-hidden mb-6 rounded">
-                           <img src="https://images.pexels.com/photos/169190/pexels-photo-169190.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sherlin & Linakar" class="w-full h-80 object-cover">
-                        </a>
-                        <h4 class="text-xl font-serif font-bold mb-1">SHERLIN & LINAKAR</h4>
-                        <p class="text-sm text-gray-500 mb-4">When you find your secret keeper for eternity</p>
-                        <p class="mb-4 text-sm leading-relaxed">Sherlin and Linakar exchanged their wedding vows amidst the awe-inspiring ambience of Fort Kochi Church. Through our lens, we captured their transition from two different people to one.</p>
-                        <a href="#" class="read-more text-sm">READ MORE</a>
-                    </div>
-                    <!-- Blog Post 3 -->
-                    <div class="blog-post">
-                        <a href="#" class="block overflow-hidden mb-6 rounded relative">
-                            <img src="https://images.pexels.com/photos/2253870/pexels-photo-2253870.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Niranjana & Niranj" class="w-full h-80 object-cover">
-                             <div class="absolute bottom-4 right-0 bg-gray-900/80 text-white py-2 px-6 text-sm tracking-widest">
-                                NIRANJANA & NIRANJ
-                            </div>
-                        </a>
-                        <h4 class="text-xl font-serif font-bold mb-1">NIRANJANA & NIRANJ</h4>
-                        <p class="text-sm text-gray-500 mb-4">After you entered my life I never looked back</p>
-                        <p class="mb-4 text-sm leading-relaxed">December was in full swing when the families of Niranj and Niranjana came together for their d-day in the vibrant city of Kochi. The couple was made for each other.</p>
-                        <a href="#" class="read-more text-sm">READ MORE</a>
-                    </div>
-                    <!-- Blog Post 4 -->
-                    <div class="blog-post">
-                         <a href="#" class="block overflow-hidden mb-6 rounded">
-                           <img src="https://thetalesoftradition.com/wp-content/uploads/2025/01/BID09710-819x1024.jpg" alt="Shebin & Mikhiya" class="w-full h-80 object-cover">
-                        </a>
-                        <h4 class="text-xl font-serif font-bold mb-1">SHEBIN & MIKHIYA</h4>
-                        <p class="text-sm text-gray-500 mb-4">The Still, Quiet Frames of a Beautiful Beginning</p>
-                        <p class="mb-4 text-sm leading-relaxed">We believe that a wedding is a beautiful beginning of a new life. Here is a glimpse of Shebin and Mikhiya's beautiful story, captured with love and care by our team.</p>
-                        <a href="#" class="read-more text-sm">READ MORE</a>
-                    </div>
+                <div id="blog-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 reveal" style="transition-delay: 0.2s;">
+                    <!-- Blog posts will be loaded here from Supabase -->
                 </div>
                 <div class="flex justify-center mt-16 space-x-2 reveal">
                     <span class="w-2 h-2 rounded-full bg-gray-300"></span>
@@ -622,7 +585,7 @@
 
         <!-- Contact / Footer -->
         <footer id="contact" class="bg-[#2C2C2C] text-white py-24">
-            <div class="container mx-auto px-6 text-center max-w-7xl">
+            <div class="container mx-auto px-6 text-center max-w-7xl relative">
                 <div class="reveal">
                     <h2 class="text-4xl md:text-5xl font-serif mb-4">Tell Us Your Story</h2>
                     <p class="text-lg max-w-2xl mx-auto mb-10 text-gray-300">Planning your wedding? We would be honored to be a part of it. Let's start the conversation.</p>
@@ -634,14 +597,157 @@
                     </div>
                      <p class="text-sm text-gray-500">&copy; <span id="year"></span> ORION photography. All Rights Reserved.Powered by DEVCOTEL</p>
                 </div>
+                <button id="admin-btn" class="absolute bottom-8 right-8 text-gray-600 hover:text-gray-400 transition-colors" aria-label="Admin Panel">
+                    <i data-lucide="sliders-horizontal" class="w-5 h-5"></i>
+                </button>
             </div>
         </footer>
     </main>
     
-    <script>
+    <!-- Password Prompt Modal -->
+    <div id="password-modal" class="fixed inset-0 bg-black bg-opacity-70 z-[101] hidden items-center justify-center p-4">
+        <div class="bg-white text-gray-800 rounded-lg shadow-2xl w-full max-w-sm p-8 relative">
+            <button id="close-password-btn" class="absolute top-4 right-4 text-gray-500 hover:text-black">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <h2 class="text-2xl font-serif mb-6 text-center">Admin Access</h2>
+            <form id="password-form">
+                <label for="password-input" class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" id="password-input" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]">
+                <p id="password-error" class="text-red-500 text-sm mt-2 hidden">Incorrect password. Please try again.</p>
+                <button type="submit" class="btn btn-primary w-full mt-6 !py-3">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CMS Modal -->
+    <div id="cms-modal" class="fixed inset-0 bg-black bg-opacity-70 z-[100] hidden items-center justify-center p-4">
+        <div class="bg-white text-gray-800 rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-8 relative">
+            <button id="close-cms-btn" class="absolute top-4 right-4 text-gray-500 hover:text-black">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <h2 class="text-3xl font-serif mb-6 text-center">Content Management</h2>
+            
+            <!-- Tabs -->
+            <div class="flex border-b mb-6">
+                <button id="blog-tab-btn" class="py-2 px-4 font-semibold border-b-2 border-[var(--color-accent)] text-[var(--color-accent)]">Blog Posts</button>
+                <button id="gallery-tab-btn" class="py-2 px-4 text-gray-500 font-semibold">Gallery Items</button>
+                <button id="logout-btn" class="ml-auto py-2 px-4 text-gray-500 font-semibold hover:text-red-500 transition-colors">Logout</button>
+            </div>
+
+            <!-- Blog Post Manager -->
+            <div id="blog-manager">
+                <h3 class="font-serif text-xl mb-4" id="blog-form-title">Add New Blog Post</h3>
+                <form id="blog-form" class="space-y-4 p-4 border rounded bg-gray-50 mb-8">
+                    <input type="hidden" id="blog-id">
+                    <div>
+                        <label for="blog-title" class="block text-sm font-medium text-gray-700">Title</label>
+                        <input type="text" id="blog-title" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]">
+                    </div>
+                    <div>
+                        <label for="blog-subtitle" class="block text-sm font-medium text-gray-700">Subtitle</label>
+                        <input type="text" id="blog-subtitle" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]">
+                    </div>
+                    <div>
+                        <label for="blog-image-url" class="block text-sm font-medium text-gray-700">Image URL</label>
+                        <input type="url" id="blog-image-url" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]">
+                    </div>
+                    <div>
+                        <label for="blog-content" class="block text-sm font-medium text-gray-700">Content</label>
+                        <textarea id="blog-content" rows="4" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"></textarea>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <button type="submit" id="submit-blog-btn" class="btn btn-primary w-full !py-2.5">Add Post</button>
+                        <button type="button" id="cancel-blog-edit-btn" class="btn !bg-gray-200 !text-gray-800 w-full !py-2.5 hover:!bg-gray-300 hidden">Cancel</button>
+                    </div>
+                </form>
+
+                <h3 class="font-serif text-xl mb-4">Manage Existing Posts</h3>
+                <div id="blog-list" class="space-y-3 max-h-64 overflow-y-auto pr-2 border rounded p-4">
+                    <!-- Dynamic list of blog posts -->
+                </div>
+            </div>
+
+            <!-- Gallery Item Manager -->
+            <div id="gallery-manager" class="hidden">
+                 <h3 class="font-serif text-xl mb-4" id="gallery-form-title">Add New Gallery Item</h3>
+                <form id="gallery-form" class="space-y-4 p-4 border rounded bg-gray-50 mb-8">
+                    <input type="hidden" id="gallery-id">
+                    <div>
+                        <label for="gallery-image-url" class="block text-sm font-medium text-gray-700">Image URL</label>
+                        <input type="url" id="gallery-image-url" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]">
+                    </div>
+                    <div>
+                        <label for="gallery-alt-text" class="block text-sm font-medium text-gray-700">Image Description (for accessibility)</label>
+                        <input type="text" id="gallery-alt-text" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]">
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <button type="submit" id="submit-gallery-btn" class="btn btn-primary w-full !py-2.5">Add Item</button>
+                        <button type="button" id="cancel-gallery-edit-btn" class="btn !bg-gray-200 !text-gray-800 w-full !py-2.5 hover:!bg-gray-300 hidden">Cancel</button>
+                    </div>
+                </form>
+
+                <h3 class="font-serif text-xl mb-4">Manage Existing Items</h3>
+                <div id="gallery-list" class="space-y-3 max-h-64 overflow-y-auto pr-2 border rounded p-4">
+                     <!-- Dynamic list of gallery items -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module">
+        const { createClient } = supabase;
+
+        const SUPABASE_URL = 'https://nrrlyzcdchquhwhdbkup.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ycmx5emNkY2hxdWh3aGRia3VwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA1NjcwMDMsImV4cCI6MjA3NjE0MzAwM30.UNRLoKYvuFb-RwUzDPKlaL3npr0ZWKcXn5A1py_DbrI';
+
+        const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // --- RENDER FUNCTIONS ---
+        const renderGallery = (items) => {
+            const container = document.getElementById('gallery-container');
+            if (!container) return;
+            container.innerHTML = items.map(item => `
+                <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="${item.image_url}" alt="${item.alt_text}">
+            `).join('');
+        };
+
+        const renderBlogPosts = (posts) => {
+            const container = document.getElementById('blog-container');
+            if (!container) return;
+            container.innerHTML = posts.map(post => `
+                <div class="blog-post">
+                    <a href="#" class="block overflow-hidden mb-6 rounded">
+                       <img src="${post.image_url}" alt="${post.title}" class="w-full h-80 object-cover">
+                    </a>
+                    <h4 class="text-xl font-serif font-bold mb-1">${post.title.toUpperCase()}</h4>
+                    <p class="text-sm text-gray-500 mb-4">${post.subtitle}</p>
+                    <p class="mb-4 text-sm leading-relaxed">${post.content}</p>
+                    <a href="#" class="read-more text-sm">READ MORE</a>
+                </div>
+            `).join('');
+        };
+        
+        // --- FETCH FUNCTIONS ---
+        const fetchGallery = async () => {
+            const { data, error } = await db.from('gallery_items').select('*').order('created_at', { ascending: false });
+            if (error) console.error('Error fetching gallery:', error.message);
+            else renderGallery(data);
+        };
+        
+        const fetchBlogPosts = async () => {
+            const { data, error } = await db.from('blog_posts').select('*').order('created_at', { ascending: false });
+            if (error) console.error('Error fetching blog posts:', error.message);
+            else renderBlogPosts(data);
+        };
+
+
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Lucide Icons
             lucide.createIcons();
+
+            fetchGallery();
+            fetchBlogPosts();
 
             // --- Header Scroll Animation ---
             const header = document.getElementById('header');
@@ -691,7 +797,7 @@
             if (slides.length > 0) {
                 nextBtn.addEventListener('click', nextSlide);
                 prevBtn.addEventListener('click', prevSlide);
-                let testimonialInterval = setInterval(nextSlide, 7000);
+                setInterval(nextSlide, 7000);
                 showSlide(currentSlide);
             }
 
@@ -707,28 +813,19 @@
                 
                 const updateSlider = () => {
                     if (milestoneSlides.length === 0) return;
-
-                    // Use a short timeout to let the browser calculate layout first
                     setTimeout(() => {
                         const slideWidth = milestoneSlides[0].getBoundingClientRect().width;
                         const containerWidth = track.parentElement.offsetWidth;
                         const slidesInView = Math.max(1, Math.round(containerWidth / slideWidth));
 
-                        if (isNaN(slideWidth) || slideWidth <= 0) {
-                            return; // Exit if width is not calculated
-                        }
+                        if (isNaN(slideWidth) || slideWidth <= 0) return;
                         
                         const maxIndex = milestoneSlides.length - slidesInView;
-                        
-                        // Clamp index to valid range
                         currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
-
                         track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
 
-                        // Toggle button visibility
                         prevButton.classList.toggle('opacity-0', currentIndex === 0);
                         prevButton.classList.toggle('pointer-events-none', currentIndex === 0);
-                        
                         nextButton.classList.toggle('opacity-0', currentIndex >= maxIndex);
                         nextButton.classList.toggle('pointer-events-none', currentIndex >= maxIndex);
                     }, 50);
@@ -739,7 +836,6 @@
                     const containerWidth = track.parentElement.offsetWidth;
                     const slidesInView = Math.max(1, Math.round(containerWidth / slideWidth));
                     const maxIndex = milestoneSlides.length - slidesInView;
-
                     if (currentIndex < maxIndex) {
                         currentIndex++;
                         updateSlider();
@@ -763,8 +859,7 @@
                 const windowHeight = window.innerHeight;
                 revealElements.forEach(el => {
                     const elementTop = el.getBoundingClientRect().top;
-                    const elementVisible = 100; // px from bottom to trigger animation
-                    if (elementTop < windowHeight - elementVisible) {
+                    if (elementTop < windowHeight - 100) {
                         el.classList.add('visible');
                     }
                 });
@@ -775,6 +870,304 @@
 
             // --- Set current year in footer ---
             document.getElementById('year').textContent = new Date().getFullYear();
+            
+            // --- CMS ---
+            const cmsModal = document.getElementById('cms-modal');
+            const adminBtn = document.getElementById('admin-btn');
+            const closeCmsBtn = document.getElementById('close-cms-btn');
+            const passwordModal = document.getElementById('password-modal');
+            const closePasswordBtn = document.getElementById('close-password-btn');
+            const passwordForm = document.getElementById('password-form');
+            const passwordInput = document.getElementById('password-input');
+            const passwordError = document.getElementById('password-error');
+            const logoutBtn = document.getElementById('logout-btn');
+
+            adminBtn.addEventListener('click', () => {
+                passwordModal.classList.remove('hidden');
+                passwordModal.classList.add('flex');
+                passwordInput.focus();
+                lucide.createIcons();
+            });
+
+            const closePasswordModal = () => {
+                passwordModal.classList.add('hidden');
+                passwordModal.classList.remove('flex');
+                passwordInput.value = '';
+                passwordError.classList.add('hidden');
+                passwordInput.classList.remove('border-red-500');
+            };
+            
+            const openCmsModal = () => {
+                cmsModal.classList.remove('hidden');
+                cmsModal.classList.add('flex');
+                loadAdminData();
+                lucide.createIcons();
+            }
+            
+            const closeCmsModal = () => {
+                cmsModal.classList.add('hidden');
+                cmsModal.classList.remove('flex');
+            }
+
+            closePasswordBtn.addEventListener('click', closePasswordModal);
+            closeCmsBtn.addEventListener('click', closeCmsModal);
+            
+            passwordModal.addEventListener('click', (e) => {
+                if (e.target === passwordModal) closePasswordModal();
+            });
+            
+            cmsModal.addEventListener('click', (e) => {
+                if (e.target === cmsModal) closeCmsModal();
+            });
+
+            passwordForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const password = passwordInput.value;
+                // IMPORTANT: This user must be created in your Supabase Auth dashboard.
+                const adminEmail = 'admin@orionphotography.com'; 
+                
+                const { data, error } = await db.auth.signInWithPassword({
+                    email: adminEmail,
+                    password: password,
+                });
+
+                if (error) {
+                    console.error('Admin login failed:', error);
+                    passwordError.textContent = error.message;
+                    passwordError.classList.remove('hidden');
+                    passwordInput.classList.add('border-red-500');
+                    passwordForm.classList.add('shake');
+                    setTimeout(() => passwordForm.classList.remove('shake'), 820);
+                    passwordInput.value = '';
+                } else {
+                    closePasswordModal();
+                    openCmsModal();
+                }
+            });
+
+            logoutBtn.addEventListener('click', async () => {
+                await db.auth.signOut();
+                closeCmsModal();
+                alert('You have been logged out.');
+            });
+
+            // --- CMS Tabs ---
+            const blogTabBtn = document.getElementById('blog-tab-btn');
+            const galleryTabBtn = document.getElementById('gallery-tab-btn');
+            const blogManager = document.getElementById('blog-manager');
+            const galleryManager = document.getElementById('gallery-manager');
+
+            blogTabBtn.addEventListener('click', () => {
+                galleryManager.classList.add('hidden');
+                blogManager.classList.remove('hidden');
+                galleryTabBtn.classList.remove('border-[var(--color-accent)]', 'text-[var(--color-accent)]');
+                galleryTabBtn.classList.add('text-gray-500');
+                blogTabBtn.classList.add('border-[var(--color-accent)]', 'text-[var(--color-accent)]');
+            });
+
+            galleryTabBtn.addEventListener('click', () => {
+                blogManager.classList.add('hidden');
+                galleryManager.classList.remove('hidden');
+                blogTabBtn.classList.remove('border-[var(--color-accent)]', 'text-[var(--color-accent)]');
+                blogTabBtn.classList.add('text-gray-500');
+                galleryTabBtn.classList.add('border-[var(--color-accent)]', 'text-[var(--color-accent)]');
+            });
+            
+            // --- Blog CRUD ---
+            const blogForm = document.getElementById('blog-form');
+            const blogIdInput = document.getElementById('blog-id');
+            const blogTitleInput = document.getElementById('blog-title');
+            const blogSubtitleInput = document.getElementById('blog-subtitle');
+            const blogImageUrlInput = document.getElementById('blog-image-url');
+            const blogContentInput = document.getElementById('blog-content');
+            const blogList = document.getElementById('blog-list');
+            const blogFormTitle = document.getElementById('blog-form-title');
+            const submitBlogBtn = document.getElementById('submit-blog-btn');
+            const cancelBlogEditBtn = document.getElementById('cancel-blog-edit-btn');
+            
+            const loadAdminBlogPosts = async () => {
+                const { data, error } = await db.from('blog_posts').select('*').order('created_at');
+                if (data) {
+                    blogList.innerHTML = data.map(post => `
+                        <div class="flex items-center justify-between p-2 border rounded bg-white">
+                            <p class="truncate pr-4">${post.title}</p>
+                            <div class="flex-shrink-0 flex gap-2">
+                                <button class="edit-blog-btn text-blue-500 hover:text-blue-700" data-id="${post.id}"><i class="w-4 h-4" data-lucide="edit"></i></button>
+                                <button class="delete-blog-btn text-red-500 hover:text-red-700" data-id="${post.id}"><i class="w-4 h-4" data-lucide="trash-2"></i></button>
+                            </div>
+                        </div>
+                    `).join('');
+                    lucide.createIcons();
+                }
+            };
+
+            const resetBlogForm = () => {
+                blogForm.reset();
+                blogIdInput.value = '';
+                blogFormTitle.textContent = 'Add New Blog Post';
+                submitBlogBtn.textContent = 'Add Post';
+                cancelBlogEditBtn.classList.add('hidden');
+            };
+
+            blogForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const blogData = {
+                    title: blogTitleInput.value,
+                    subtitle: blogSubtitleInput.value,
+                    image_url: blogImageUrlInput.value,
+                    content: blogContentInput.value,
+                };
+
+                const id = blogIdInput.value;
+                let error;
+                if (id) { // Update
+                    ({ error } = await db.from('blog_posts').update(blogData).eq('id', id));
+                } else { // Create
+                    ({ error } = await db.from('blog_posts').insert([blogData]));
+                }
+                
+                if (error) {
+                    alert('Error saving post: ' + error.message);
+                } else {
+                    resetBlogForm();
+                    await fetchBlogPosts();
+                    await loadAdminBlogPosts();
+                }
+            });
+
+            cancelBlogEditBtn.addEventListener('click', resetBlogForm);
+
+            blogList.addEventListener('click', async (e) => {
+                const editBtn = e.target.closest('.edit-blog-btn');
+                const deleteBtn = e.target.closest('.delete-blog-btn');
+                
+                if (editBtn) {
+                    const id = editBtn.dataset.id;
+                    const { data, error } = await db.from('blog_posts').select('*').eq('id', id).single();
+                    if (data) {
+                        blogIdInput.value = data.id;
+                        blogTitleInput.value = data.title;
+                        blogSubtitleInput.value = data.subtitle;
+                        blogImageUrlInput.value = data.image_url;
+                        blogContentInput.value = data.content;
+                        blogFormTitle.textContent = 'Editing Post';
+                        submitBlogBtn.textContent = 'Update Post';
+                        cancelBlogEditBtn.classList.remove('hidden');
+                        blogForm.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+
+                if (deleteBtn) {
+                    const id = deleteBtn.dataset.id;
+                    if (confirm('Are you sure you want to delete this post?')) {
+                        const { error } = await db.from('blog_posts').delete().eq('id', id);
+                        if(error) alert('Error deleting post: ' + error.message);
+                        else {
+                           await fetchBlogPosts();
+                           await loadAdminBlogPosts(); 
+                        }
+                    }
+                }
+            });
+
+            // --- Gallery CRUD ---
+            const galleryForm = document.getElementById('gallery-form');
+            const galleryIdInput = document.getElementById('gallery-id');
+            const galleryUrlInput = document.getElementById('gallery-image-url');
+            const galleryAltInput = document.getElementById('gallery-alt-text');
+            const galleryList = document.getElementById('gallery-list');
+            const galleryFormTitle = document.getElementById('gallery-form-title');
+            const submitGalleryBtn = document.getElementById('submit-gallery-btn');
+            const cancelGalleryEditBtn = document.getElementById('cancel-gallery-edit-btn');
+            
+            const loadAdminGallery = async () => {
+                const { data, error } = await db.from('gallery_items').select('*').order('created_at');
+                if (data) {
+                    galleryList.innerHTML = data.map(item => `
+                        <div class="flex items-center justify-between p-2 border rounded bg-white">
+                            <img src="${item.image_url}" class="w-12 h-12 object-cover rounded mr-4">
+                            <p class="truncate pr-4 flex-1">${item.alt_text}</p>
+                            <div class="flex-shrink-0 flex gap-2">
+                                <button class="edit-gallery-btn text-blue-500 hover:text-blue-700" data-id="${item.id}"><i class="w-4 h-4" data-lucide="edit"></i></button>
+                                <button class="delete-gallery-btn text-red-500 hover:text-red-700" data-id="${item.id}"><i class="w-4 h-4" data-lucide="trash-2"></i></button>
+                            </div>
+                        </div>
+                    `).join('');
+                    lucide.createIcons();
+                }
+            };
+            
+            const resetGalleryForm = () => {
+                galleryForm.reset();
+                galleryIdInput.value = '';
+                galleryFormTitle.textContent = 'Add New Gallery Item';
+                submitGalleryBtn.textContent = 'Add Item';
+                cancelGalleryEditBtn.classList.add('hidden');
+            };
+
+            galleryForm.addEventListener('submit', async(e) => {
+                e.preventDefault();
+                const itemData = {
+                    image_url: galleryUrlInput.value,
+                    alt_text: galleryAltInput.value,
+                };
+                const id = galleryIdInput.value;
+                let error;
+
+                if (id) { // Update
+                    ({ error } = await db.from('gallery_items').update(itemData).eq('id', id));
+                } else { // Create
+                    ({ error } = await db.from('gallery_items').insert([itemData]));
+                }
+                
+                if (error) {
+                    alert('Error saving item: ' + error.message);
+                } else {
+                    resetGalleryForm();
+                    await fetchGallery();
+                    await loadAdminGallery();
+                }
+            });
+
+            cancelGalleryEditBtn.addEventListener('click', resetGalleryForm);
+
+            galleryList.addEventListener('click', async (e) => {
+                const editBtn = e.target.closest('.edit-gallery-btn');
+                const deleteBtn = e.target.closest('.delete-gallery-btn');
+
+                if (editBtn) {
+                    const id = editBtn.dataset.id;
+                    const { data, error } = await db.from('gallery_items').select('*').eq('id', id).single();
+                     if (data) {
+                        galleryIdInput.value = data.id;
+                        galleryUrlInput.value = data.image_url;
+                        galleryAltInput.value = data.alt_text;
+                        galleryFormTitle.textContent = 'Editing Item';
+                        submitGalleryBtn.textContent = 'Update Item';
+                        cancelGalleryEditBtn.classList.remove('hidden');
+                        galleryForm.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+
+                if (deleteBtn) {
+                     const id = deleteBtn.dataset.id;
+                    if (confirm('Are you sure you want to delete this item?')) {
+                        const { error } = await db.from('gallery_items').delete().eq('id', id);
+                        if(error) alert('Error deleting item: ' + error.message);
+                        else {
+                           await fetchGallery();
+                           await loadAdminGallery(); 
+                        }
+                    }
+                }
+            });
+
+
+            const loadAdminData = () => {
+                loadAdminBlogPosts();
+                loadAdminGallery();
+            };
+
         });
     </script>
 </body>
