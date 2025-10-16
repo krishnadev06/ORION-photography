@@ -120,8 +120,26 @@
         .gallery-item:hover {
             transform: scale(1.03);
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            filter: brightness(1.05);
         }
+
+        .gallery-item .description-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            padding: 2rem 1rem 1rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .gallery-item:hover .description-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
 
         /* Portfolio Scroll Container */
         .portfolio-scroll-container {
@@ -175,39 +193,10 @@
             color: var(--color-text-dark);
         }
 
-        /* About Section Styles */
-        #about {
-            position: relative;
-            background-image: url('https://img.freepik.com/premium-photo/colorful-image-background-with-colors-colors-colors_889056-245946.jpg?w=360');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-        #about::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(44, 44, 44, 0.75);
-            z-index: 1;
-        }
-        #about .container {
-            position: relative;
-            z-index: 2;
-        }
-        #about h2 {
-            color: var(--color-white);
-        }
-        #about p {
-            color: #e5e7eb; /* Tailwind's gray-200 for soft white text */
-        }
-
         /* Milestone Section Styles */
         #milestones {
             position: relative;
-            background-image: url('https://images4.alphacoders.com/594/594993.jpg');
+            background-image: url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4noMSUHxv7srAS_ueRJOWKGSuTU8FX9-upakdrKn2gOv93YcUUJdijoshYq3hxJRG-5bo8rA2Irzsbxbzy2PmQI9bG_Hsd6WrpZczX1xbhg-iLG57i3XC32kCUO8TEfGKxf-Pc8=s1360-w1360-h1020-rw');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -246,6 +235,21 @@
             #next-milestone {
                 right: -2rem;
             }
+        }
+        
+        .service-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem; /* 16px */
+            font-size: 1.05rem;
+            color: var(--color-text-dark);
+        }
+        .service-item i {
+            color: var(--color-accent);
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            margin-top: 2px;
         }
 
         /* Showcase Section Styles */
@@ -298,11 +302,11 @@
              <a href="#hero" class="text-2xl lg:text-3xl font-serif font-bold text-white z-50 tracking-wide">ORION photography</a>
              <!-- Desktop Navigation -->
             <nav class="hidden md:flex items-center space-x-10">
-                <a href="#about" class="text-white hover:text-gray-300 transition-colors tracking-wider">About</a>
+                <a href="#about" class="about-modal-trigger text-white hover:text-gray-300 transition-colors tracking-wider">About</a>
                 <a href="#portfolio" class="text-white hover:text-gray-300 transition-colors tracking-wider">Portfolio</a>
                 <a href="#blog" class="text-white hover:text-gray-300 transition-colors tracking-wider">Blog</a>
                 <a href="#milestones" class="text-white hover:text-gray-300 transition-colors tracking-wider">Milestones</a>
-                <a href="#contact" class="btn btn-secondary">Contact Us</a>
+                <a href="#" class="btn btn-secondary contact-modal-trigger">Contact Us</a>
             </nav>
             <!-- Mobile Menu Button -->
             <button id="menu-btn" class="md:hidden z-50 text-white focus:outline-none">
@@ -319,11 +323,11 @@
         <nav class="text-center">
             <ul class="space-y-8">
                 <li><a href="#hero" class="nav-link text-4xl font-serif text-white hover:text-gray-400 transition-colors duration-300">Home</a></li>
-                <li><a href="#about" class="nav-link text-4xl font-serif text-white hover:text-gray-400 transition-colors duration-300">About</a></li>
+                <li><a href="#about" class="nav-link about-modal-trigger text-4xl font-serif text-white hover:text-gray-400 transition-colors duration-300">About</a></li>
                 <li><a href="#portfolio" class="nav-link text-4xl font-serif text-white hover:text-gray-400 transition-colors duration-300">Portfolio</a></li>
                  <li><a href="#blog" class="nav-link text-4xl font-serif text-white hover:text-gray-400 transition-colors duration-300">Blog</a></li>
                 <li><a href="#milestones" class="nav-link text-4xl font-serif text-white hover:text-gray-400 transition-colors duration-300">Milestones</a></li>
-                <li><a href="#contact" class="nav-link text-4xl font-serif text-white hover:text-gray-400 transition-colors duration-300">Contact</a></li>
+                <li><a href="#" class="nav-link contact-modal-trigger text-4xl font-serif text-white hover:text-gray-400 transition-colors duration-300">Contact</a></li>
             </ul>
         </nav>
     </div>
@@ -340,7 +344,7 @@
                 loop 
                 muted 
                 playsinline
-                poster="https://lh3.googleusercontent.com/gps-cs-s/AC9h4npq5aEiMv4CELuF0RIjMh-QKYXKxPmQfXKJ831_7Nt1c-NMTxlixrXCizWUEt-f6sAOG3R_o4Gs74G7EiWelA1Zb-0OlF6LN9lytAK14imqTU5fvRTFGAqppRX_S4j8b1x-T9FL=s1360-w1360-h1020-rw"
+                poster="https://images.pexels.com/photos/169198/pexels-photo-169198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
             ></video>
 
             <div class="relative z-10 px-4">
@@ -368,7 +372,7 @@
                             <p class="italic text-lg">"I like to photograph anyone before they know what their best angles are."</p>
                             <cite class="text-sm mt-2 block not-italic">- Ellan Von Unwerth</cite>
                         </blockquote>
-                        <a href="#contact" class="font-bold text-lg text-[var(--color-text-dark)] border-b-2 border-[var(--color-accent)] pb-1 hover:text-[var(--color-accent)] transition-colors">
+                        <a href="#" class="font-bold text-lg text-[var(--color-text-dark)] border-b-2 border-[var(--color-accent)] pb-1 hover:text-[var(--color-accent)] transition-colors contact-modal-trigger">
                             Make It Real
                         </a>
                     </div>
@@ -386,7 +390,7 @@
                         <div class="showcase-card absolute w-3/5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
                             <img src="https://cdn0.weddingwire.in/article-vendor-o/5446/original/1280/jpg/kerala-palakkad-wedding-photography-glareart-photography-15_15_135446_v1.jpeg" alt="Couple Niharika & Suvamsh" class="w-full h-auto rounded-sm object-cover">
                             <div class="text-center py-3">
-                                <h4 class="font-bold">ASWATHY & SUMESH</h4>
+                                <h4 class="font-bold">NIKHIL & SUMESH</h4>
                                 <p class="text-xs text-gray-500">Destination: Kannur</p>
                             </div>
                         </div>
@@ -425,6 +429,48 @@
             </div>
         </section>
 
+        <!-- About Us Section -->
+        <section id="about-us" class="py-24 md:py-32 bg-white">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="grid lg:grid-cols-2 gap-16 xl:gap-24 items-center">
+                    <div class="reveal">
+                        <p class="tracking-widest uppercase text-sm mb-3 text-[var(--color-accent)]">ABOUT ORION PHOTOGRAPHY</p>
+                        <h2 class="text-4xl md:text-5xl font-serif mb-6 leading-tight">More Than Photographers, We Are Storytellers</h2>
+                        <p class="text-lg leading-relaxed mb-6 text-gray-600">
+                            Founded on a passion for authentic narrative, Orion Photography is a collective of artists dedicated to capturing the soul of your most cherished moments. We believe that the best photographs are born from genuine connection, trust, and a deep understanding of your unique story.
+                        </p>
+                        <div class="space-y-6 mt-8">
+                            <div class="service-item">
+                                <i data-lucide="camera"></i>
+                                <div>
+                                    <h4 class="font-bold">Candid Moments</h4>
+                                    <p class="text-gray-600 text-base">We specialize in capturing the unscripted, fleeting moments of joy and emotion.</p>
+                                </div>
+                            </div>
+                            <div class="service-item">
+                                <i data-lucide="film"></i>
+                                <div>
+                                    <h4 class="font-bold">Cinematic Films</h4>
+                                    <p class="text-gray-600 text-base">Our videography turns your wedding day into a timeless film you'll rewatch for years.</p>
+                                </div>
+                            </div>
+                            <div class="service-item">
+                                <i data-lucide="heart"></i>
+                                <div>
+                                    <h4 class="font-bold">Timeless Portraits</h4>
+                                    <p class="text-gray-600 text-base">We craft stunning, magazine-worthy portraits that feel both classic and contemporary.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-primary mt-10 about-modal-trigger">Read Our Full Story</a>
+                    </div>
+                    <div class="relative reveal order-first lg:order-last" style="transition-delay: 0.2s;">
+                     <img src="https://lh3.googleusercontent.com/p/AF1QipP9P9yxBXtVvyzCR8_DfmZWiw_QIAcJMXr-TtPQ=s1360-w1360-h1020-rw"></img>
+                     <div class="absolute -bottom-4 -right-4 w-48 h-48 bg-[var(--color-background)] rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
 
         <!-- Portfolio Section -->
@@ -439,23 +485,13 @@
                 </div>
             </div>
         </section>
-        <!-- About Us Section -->
-        <section id="about" class="py-24 md:py-32">
-            <div class="container mx-auto px-6 max-w-3xl text-center reveal">
-                <h2 class="text-4xl md:text-5xl font-serif mb-6">Our Story, Your Story</h2>
-                <p class="mb-5 text-lg leading-relaxed">We are John & Jane, a husband and wife team with a shared passion for visual storytelling. For us, filming weddings is more than a profession—it's the privilege of witnessing and preserving the unique joy of two people committing to forever.</p>
-                <p class="leading-relaxed text-lg mb-8">Our approach blends documentary authenticity with fine art cinematography. We focus on capturing genuine emotions and candid moments, creating a film that feels both timeless and true to you.</p>
-                <a href="#contact" class="btn btn-primary">Let's Create Together</a>
-            </div>
-        </section>
+
         <!-- Blog Section -->
         <section id="blog" class="py-24 md:py-32 bg-white">
             <div class="container mx-auto px-6 max-w-7xl">
                 <div class="flex flex-col md:flex-row justify-between items-start mb-16 reveal">
                     <h2 class="text-4xl md:text-5xl font-serif mb-8 md:mb-0 leading-tight">READ<br>OUR BLOG</h2>
                     <blockquote class="max-w-sm text-right text-gray-500 italic mt-2 self-end">
-                        <p>"Your photography is a record of your living, for anyone who really sees."</p>
-                        <cite class="not-italic block mt-2 text-sm">- Paul Strand</cite>
                     </blockquote>
                 </div>
                 <div id="blog-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 reveal" style="transition-delay: 0.2s;">
@@ -559,18 +595,18 @@
                     <div id="testimonial-container" class="overflow-hidden min-h-[320px]">
                         <div class="testimonial-slide active">
                             <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop" alt="Profile photo of Sarah" class="w-24 h-24 rounded-full object-cover mx-auto mb-6 shadow-md">
-                            <p class="text-xl lg:text-2xl font-serif italic mb-6">"We are speechless! The film perfectly captured the emotion and joy of our day. Thank you for creating a masterpiece we'll cherish forever."</p>
-                            <h4 class="font-bold text-lg tracking-wider uppercase">- Sarah & Michael</h4>
+                            <p class="text-xl lg:text-2xl font-serif italic mb-6">"Orion photography covered my wedding. they have a amazing team. Ajesh & his team members Ranjith, Jeevan Tejas, Arun are good in their work. The service they provide is excellent. I would recommend them."</p>
+                            <h4 class="font-bold text-lg tracking-wider uppercase">-Athira Sreedhar</h4>
                         </div>
                         <div class="testimonial-slide">
                             <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop" alt="Profile photo of Emily" class="w-24 h-24 rounded-full object-cover mx-auto mb-6 shadow-md">
-                            <p class="text-xl lg:text-2xl font-serif italic mb-6">"The wedding film is pure magic. It's so much more than we ever expected. They are true artists and professionals, and made us feel so at ease."</p>
-                            <h4 class="font-bold text-lg tracking-wider uppercase">- Emily & James</h4>
+                            <p class="text-xl lg:text-2xl font-serif italic mb-6">"Very professional team to capture and keep all your memories, and adoring moments...!!! Loved their innovative approach in every projects.Highly recommended."</p>
+                            <h4 class="font-bold text-lg tracking-wider uppercase">- Madhava das</h4>
                         </div>
                         <div class="testimonial-slide">
                              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop" alt="Profile photo of Jessica" class="w-24 h-24 rounded-full object-cover mx-auto mb-6 shadow-md">
-                            <p class="text-xl lg:text-2xl font-serif italic mb-6">"From our first call to the final delivery, the experience was seamless. Our photos are stunning, and we're so grateful for their incredible work!"</p>
-                            <h4 class="font-bold text-lg tracking-wider uppercase">- Jessica & Daniel</h4>
+                            <p class="text-xl lg:text-2xl font-serif italic mb-6">"Orion Photography and its staff provide very good service and I am satisfied with it.His staffs are very kind. Thank you Orion ."</p>
+                            <h4 class="font-bold text-lg tracking-wider uppercase">- Jabir mhmd</h4>
                         </div>
                     </div>
                     <button id="prev-testimonial" class="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-20 text-gray-400 hover:text-[var(--color-accent)] transition-colors">
@@ -604,6 +640,66 @@
         </footer>
     </main>
     
+    <!-- About Modal -->
+    <div id="about-modal" class="fixed inset-0 bg-black bg-opacity-70 z-[103] hidden items-center justify-center p-4">
+        <div class="bg-white text-gray-800 rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-8 relative">
+            <button id="close-about-btn" class="absolute top-4 right-4 text-gray-500 hover:text-black">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="order-2 md:order-1">
+                    <h2 class="text-4xl md:text-5xl font-serif mb-6">Our Story, Your Story</h2>
+                    <div class="space-y-4 text-gray-600 leading-relaxed">
+                       <p>The story of Orion Photography is not just about cameras and lenses; it’s a story of relentless passion, unyielding vision, and the profound belief that every life event deserves to be chronicled with soul. It began in Mangode in 2015, conceived by a man with little more than a camera, a heart full of dreams, and the raw talent to see the world not just as it is, but as it feels.</p>
+                       <p>In those early days, our founder poured every ounce of his energy into building a foundation based on quality and trust. The initial path was challenging, paved with long hours, creative struggles, and the constant hustle required to establish a name in a highly competitive industry. But where others saw obstacles, he saw opportunities—opportunities to innovate, to connect deeply with clients, and to redefine what local photography could be.</p>
+                       <p>Our team, which has grown organically alongside our reputation, now shares this core belief. We approach every assignment with the same commitment: to be discreet observers who step in only when necessary to guide and create stunning, magazine-worthy portraits. We are storytellers first, using our technical mastery to ensure that the lighting, composition, and mood of every photograph elevate your memory into a piece of art.</p>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2">
+                     <img src="https://lh3.googleusercontent.com/p/AF1QipP9P9yxBXtVvyzCR8_DfmZWiw_QIAcJMXr-TtPQ=s1360-w1360-h1020-rw" alt="Orion Photography Team" class="rounded-lg shadow-lg w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="fixed inset-0 bg-black bg-opacity-70 z-[102] hidden items-center justify-center p-4">
+        <div class="bg-white text-gray-800 rounded-lg shadow-2xl w-full max-w-lg p-8 relative">
+             <button id="close-contact-btn" class="absolute top-4 right-4 text-gray-500 hover:text-black">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div id="contact-form-container">
+                <h2 class="text-3xl font-serif mb-2 text-center">Get In Touch</h2>
+                <p class="text-center text-gray-500 mb-6">We'd love to hear from you. Fill out the form below.</p>
+                <form id="contact-form" class="space-y-4">
+                    <div>
+                        <label for="contact-name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input type="text" id="contact-name" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]">
+                    </div>
+                     <div>
+                        <label for="contact-email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                        <input type="email" id="contact-email" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]">
+                    </div>
+                    <div>
+                        <label for="contact-phone" class="block text-sm font-medium text-gray-700">Phone Number (Optional)</label>
+                        <input type="tel" id="contact-phone" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]">
+                    </div>
+                    <div>
+                        <label for="contact-message" class="block text-sm font-medium text-gray-700">Message</label>
+                        <textarea id="contact-message" rows="4" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full !py-3">Send Message</button>
+                </form>
+            </div>
+            <div id="contact-success-message" class="hidden text-center py-10">
+                <i data-lucide="check-circle-2" class="w-16 h-16 text-green-500 mx-auto mb-4"></i>
+                <h2 class="text-2xl font-serif mb-2">Thank You!</h2>
+                <p class="text-gray-600">Your message has been sent. We'll be in touch shortly.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Password Prompt Modal -->
     <div id="password-modal" class="fixed inset-0 bg-black bg-opacity-70 z-[101] hidden items-center justify-center p-4">
         <div class="bg-white text-gray-800 rounded-lg shadow-2xl w-full max-w-sm p-8 relative">
@@ -709,7 +805,13 @@
             const container = document.getElementById('gallery-container');
             if (!container) return;
             container.innerHTML = items.map(item => `
-                <img class="rounded-lg gallery-item h-80 md:h-96 w-auto" src="${item.image_url}" alt="${item.alt_text}">
+                <div class="relative flex-shrink-0 group gallery-item rounded-lg overflow-hidden cursor-pointer">
+                    <img class="h-80 md:h-96 w-auto object-cover transition-transform duration-300 group-hover:scale-105" src="${item.image_url}" alt="${item.alt_text}">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 p-4 w-full">
+                        <p class="text-white text-sm font-medium translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">${item.alt_text}</p>
+                    </div>
+                </div>
             `).join('');
         };
 
@@ -732,8 +834,53 @@
         // --- FETCH FUNCTIONS ---
         const fetchGallery = async () => {
             const { data, error } = await db.from('gallery_items').select('*').order('created_at', { ascending: false });
-            if (error) console.error('Error fetching gallery:', error.message);
-            else renderGallery(data);
+            if (error) {
+                console.error('Error fetching gallery:', error.message);
+            } else {
+                renderGallery(data);
+                
+                // --- Gallery Auto-Scroll Carousel ---
+                const galleryContainer = document.getElementById('gallery-container');
+                if (galleryContainer && data && data.length > 1) { // Only start if more than one image
+                    let galleryInterval;
+                    let currentGalleryIndex = 0;
+
+                    const advanceCarousel = () => {
+                        const images = galleryContainer.querySelectorAll('.gallery-item');
+                        if (images.length === 0) return;
+                        
+                        // Move to the next image, loop at the end
+                        currentGalleryIndex = (currentGalleryIndex + 1) % images.length;
+                        
+                        const nextImage = images[currentGalleryIndex];
+                        if (nextImage) {
+                            // This method scrolls the container to bring the element into view.
+                            nextImage.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'nearest',
+                                inline: 'center' // Tries to center the image horizontally
+                            });
+                        }
+                    };
+
+                    const startGalleryCarousel = () => {
+                        // Clear any existing interval to prevent speed-ups
+                        clearInterval(galleryInterval);
+                        galleryInterval = setInterval(advanceCarousel, 300000);
+                    };
+
+                    const stopGalleryCarousel = () => {
+                        clearInterval(galleryInterval);
+                    };
+                    
+                    // Pause on hover
+                    galleryContainer.addEventListener('mouseenter', stopGalleryCarousel);
+                    galleryContainer.addEventListener('mouseleave', startGalleryCarousel);
+
+                    // Start the carousel
+                    startGalleryCarousel();
+                }
+            }
         };
         
         const fetchBlogPosts = async () => {
@@ -770,7 +917,102 @@
             
             menuBtn.addEventListener('click', openNav);
             closeBtn.addEventListener('click', closeNav);
-            navLinks.forEach(link => link.addEventListener('click', closeNav));
+            navLinks.forEach(link => {
+                // Close nav if it's not a modal trigger
+                if (!link.classList.contains('contact-modal-trigger') && !link.classList.contains('about-modal-trigger')) {
+                    link.addEventListener('click', closeNav);
+                }
+            });
+
+            // --- About Modal ---
+            const aboutModal = document.getElementById('about-modal');
+            const closeAboutBtn = document.getElementById('close-about-btn');
+            const aboutModalTriggers = document.querySelectorAll('.about-modal-trigger');
+
+            const openAboutModal = () => {
+                aboutModal.classList.remove('hidden');
+                aboutModal.classList.add('flex');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                lucide.createIcons();
+            };
+
+            const closeAboutModal = () => {
+                aboutModal.classList.add('hidden');
+                aboutModal.classList.remove('flex');
+                document.body.style.overflow = '';
+            };
+
+            aboutModalTriggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (navOverlay.classList.contains('open')) {
+                        closeNav();
+                    }
+                    openAboutModal();
+                });
+            });
+
+            closeAboutBtn.addEventListener('click', closeAboutModal);
+            aboutModal.addEventListener('click', (e) => {
+                if (e.target === aboutModal) {
+                    closeAboutModal();
+                }
+            });
+
+            // --- Contact Modal ---
+            const contactModal = document.getElementById('contact-modal');
+            const closeContactBtn = document.getElementById('close-contact-btn');
+            const contactModalTriggers = document.querySelectorAll('.contact-modal-trigger');
+            const contactForm = document.getElementById('contact-form');
+            const contactFormContainer = document.getElementById('contact-form-container');
+            const contactSuccessMessage = document.getElementById('contact-success-message');
+
+            const openContactModal = () => {
+                contactModal.classList.remove('hidden');
+                contactModal.classList.add('flex');
+                lucide.createIcons();
+            };
+
+            const closeContactModal = () => {
+                contactModal.classList.add('hidden');
+                contactModal.classList.remove('flex');
+                // Reset form for next time
+                setTimeout(() => {
+                    contactForm.reset();
+                    contactFormContainer.classList.remove('hidden');
+                    contactSuccessMessage.classList.add('hidden');
+                }, 300);
+            };
+
+            contactModalTriggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    // If mobile nav is open, close it first
+                    if (navOverlay.classList.contains('open')) {
+                        closeNav();
+                    }
+                    openContactModal();
+                });
+            });
+
+            closeContactBtn.addEventListener('click', closeContactModal);
+            contactModal.addEventListener('click', (e) => {
+                if (e.target === contactModal) {
+                    closeContactModal();
+                }
+            });
+            
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // In a real application, you would handle the form submission here (e.g., send to an API endpoint).
+                // For now, we'll just show the success message.
+                contactFormContainer.classList.add('hidden');
+                contactSuccessMessage.classList.remove('hidden');
+                
+                // Automatically close the modal after a few seconds
+                setTimeout(closeContactModal, 3000);
+            });
+
 
             // --- Testimonial Slider ---
             const slides = document.querySelectorAll('.testimonial-slide');
