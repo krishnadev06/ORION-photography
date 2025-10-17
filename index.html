@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ORION-Photography</title>
+    <title>WeddingBells Stories - Crafting Timeless Wedding Stories</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -142,11 +142,11 @@
 
 
         /* Portfolio Scroll Container */
-        .portfolio-scroll-container {
+        .portfolio-scroll-container, .blog-modal-gallery-container {
             -ms-overflow-style: none;  /* IE and Edge */
             scrollbar-width: none;  /* Firefox */
         }
-        .portfolio-scroll-container::-webkit-scrollbar {
+        .portfolio-scroll-container::-webkit-scrollbar, .blog-modal-gallery-container::-webkit-scrollbar {
             display: none; /* Chrome, Safari, Opera */
         }
 
@@ -466,7 +466,6 @@
                     </div>
                     <div class="relative reveal order-first lg:order-last" style="transition-delay: 0.2s;">
                      <img src="https://lh3.googleusercontent.com/p/AF1QipP9P9yxBXtVvyzCR8_DfmZWiw_QIAcJMXr-TtPQ=s1360-w1360-h1020-rw"></img>
-                     <div class="absolute -bottom-4 -right-4 w-48 h-48 bg-[var(--color-background)] rounded-lg"></div>
                     </div>
                 </div>
             </div>
@@ -656,7 +655,7 @@
                     </div>
                 </div>
                 <div class="order-1 md:order-2">
-                     <img src="https://lh3.googleusercontent.com/p/AF1QipP9P9yxBXtVvyzCR8_DfmZWiw_QIAcJMXr-TtPQ=s1360-w1360-h1020-rw" alt="Orion Photography Team" class="rounded-lg shadow-lg w-full h-full object-cover">
+                     <img src="https://lh3.googleusercontent.com/p/AF1QipP9P9yxBXtVvyzCR8_DfmZWiw_QIAcJMXr-TtPQ=s1360-w1360-h1020-rw" alt="Orion Photography Team"class="rounded-lg shadow-lg w-full h-full object-cover">
                 </div>
             </div>
         </div>
@@ -695,10 +694,35 @@
             <div id="contact-success-message" class="hidden text-center py-10">
                 <i data-lucide="check-circle-2" class="w-16 h-16 text-green-500 mx-auto mb-4"></i>
                 <h2 class="text-2xl font-serif mb-2">Thank You!</h2>
-                <p class="text-gray-600">Redirecting to WhatsApp...</p>
+                <p class="text-gray-600">Your message has been sent. We'll be in touch shortly.</p>
             </div>
         </div>
     </div>
+
+    <!-- Blog Post Modal -->
+    <div id="blog-modal" class="fixed inset-0 bg-black bg-opacity-80 z-[104] hidden items-center justify-center p-4">
+        <div class="bg-white text-gray-800 rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative">
+            <button id="close-blog-btn" class="absolute top-4 right-4 text-gray-500 hover:text-black z-10 bg-white/50 rounded-full p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div id="blog-modal-content-container">
+                <img id="blog-modal-image" src="" alt="" class="w-full h-64 md:h-96 object-cover">
+                <div class="p-8 md:p-12">
+                    <h2 id="blog-modal-title" class="text-3xl md:text-5xl font-serif mb-4"></h2>
+                    <p id="blog-modal-subtitle" class="text-lg text-gray-500 mb-8"></p>
+                    <div id="blog-modal-content" class="prose max-w-none text-gray-600 leading-relaxed space-y-4"></div>
+                    
+                    <hr class="my-12">
+
+                    <h3 class="text-2xl font-serif mb-6 text-center">From Our Gallery</h3>
+                    <div id="blog-modal-gallery" class="flex items-start gap-4 overflow-x-auto pb-4 blog-modal-gallery-container">
+                        <!-- Mini gallery items will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Password Prompt Modal -->
     <div id="password-modal" class="fixed inset-0 bg-black bg-opacity-70 z-[101] hidden items-center justify-center p-4">
@@ -820,13 +844,13 @@
             if (!container) return;
             container.innerHTML = posts.map(post => `
                 <div class="blog-post">
-                    <a href="#" class="block overflow-hidden mb-6 rounded">
-                       <img src="${post.image_url}" alt="${post.title}" class="w-full h-80 object-cover">
+                    <a href="#" class="block overflow-hidden mb-6 rounded" data-id="${post.id}">
+                       <img src="${post.image_url}" alt="${post.title}" class="w-full h-80 object-cover pointer-events-none">
                     </a>
                     <h4 class="text-xl font-serif font-bold mb-1">${post.title.toUpperCase()}</h4>
                     <p class="text-sm text-gray-500 mb-4">${post.subtitle}</p>
-                    <p class="mb-4 text-sm leading-relaxed">${post.content}</p>
-                    <a href="#" class="read-more text-sm">READ MORE</a>
+                    <p class="mb-4 text-sm leading-relaxed">${post.content.substring(0, 100)}...</p>
+                    <a href="javascript:void(0)" class="read-more read-more-trigger text-sm" data-id="${post.id}">READ MORE</a>
                 </div>
             `).join('');
         };
@@ -849,22 +873,19 @@
                         const images = galleryContainer.querySelectorAll('.gallery-item');
                         if (images.length === 0) return;
                         
-                        // Move to the next image, loop at the end
                         currentGalleryIndex = (currentGalleryIndex + 1) % images.length;
                         
                         const nextImage = images[currentGalleryIndex];
                         if (nextImage) {
-                            // This method scrolls the container to bring the element into view.
                             nextImage.scrollIntoView({
                                 behavior: 'smooth',
                                 block: 'nearest',
-                                inline: 'center' // Tries to center the image horizontally
+                                inline: 'center'
                             });
                         }
                     };
 
                     const startGalleryCarousel = () => {
-                        // Clear any existing interval to prevent speed-ups
                         clearInterval(galleryInterval);
                         galleryInterval = setInterval(advanceCarousel, 300000);
                     };
@@ -873,11 +894,9 @@
                         clearInterval(galleryInterval);
                     };
                     
-                    // Pause on hover
                     galleryContainer.addEventListener('mouseenter', stopGalleryCarousel);
                     galleryContainer.addEventListener('mouseleave', startGalleryCarousel);
 
-                    // Start the carousel
                     startGalleryCarousel();
                 }
             }
@@ -918,7 +937,6 @@
             menuBtn.addEventListener('click', openNav);
             closeBtn.addEventListener('click', closeNav);
             navLinks.forEach(link => {
-                // Close nav if it's not a modal trigger
                 if (!link.classList.contains('contact-modal-trigger') && !link.classList.contains('about-modal-trigger')) {
                     link.addEventListener('click', closeNav);
                 }
@@ -932,7 +950,7 @@
             const openAboutModal = () => {
                 aboutModal.classList.remove('hidden');
                 aboutModal.classList.add('flex');
-                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                document.body.style.overflow = 'hidden';
                 lucide.createIcons();
             };
 
@@ -945,18 +963,14 @@
             aboutModalTriggers.forEach(trigger => {
                 trigger.addEventListener('click', (e) => {
                     e.preventDefault();
-                    if (navOverlay.classList.contains('open')) {
-                        closeNav();
-                    }
+                    if (navOverlay.classList.contains('open')) closeNav();
                     openAboutModal();
                 });
             });
 
             closeAboutBtn.addEventListener('click', closeAboutModal);
             aboutModal.addEventListener('click', (e) => {
-                if (e.target === aboutModal) {
-                    closeAboutModal();
-                }
+                if (e.target === aboutModal) closeAboutModal();
             });
 
             // --- Contact Modal ---
@@ -970,13 +984,14 @@
             const openContactModal = () => {
                 contactModal.classList.remove('hidden');
                 contactModal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
                 lucide.createIcons();
             };
 
             const closeContactModal = () => {
                 contactModal.classList.add('hidden');
                 contactModal.classList.remove('flex');
-                // Reset form for next time
+                document.body.style.overflow = '';
                 setTimeout(() => {
                     contactForm.reset();
                     contactFormContainer.classList.remove('hidden');
@@ -987,43 +1002,85 @@
             contactModalTriggers.forEach(trigger => {
                 trigger.addEventListener('click', (e) => {
                     e.preventDefault();
-                    // If mobile nav is open, close it first
-                    if (navOverlay.classList.contains('open')) {
-                        closeNav();
-                    }
+                    if (navOverlay.classList.contains('open')) closeNav();
                     openContactModal();
                 });
             });
 
             closeContactBtn.addEventListener('click', closeContactModal);
             contactModal.addEventListener('click', (e) => {
-                if (e.target === contactModal) {
-                    closeContactModal();
-                }
+                if (e.target === contactModal) closeContactModal();
             });
             
             contactForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                
-                const name = document.getElementById('contact-name').value;
-                const email = document.getElementById('contact-email').value;
-                const phone = document.getElementById('contact-phone').value;
-                const message = document.getElementById('contact-message').value;
-
-                const waMessage = `Hello, I'm contacting you from the Orion Photography website.\n\n*Name:* ${name}\n*Email:* ${email}\n*Phone:* ${phone}\n\n*Message:*\n${message}`;
-                const encodedMessage = encodeURIComponent(waMessage);
-                const waNumber = '7593038781';
-                const whatsappUrl = `https://wa.me/${waNumber}?text=${encodedMessage}`;
-
-                // Open WhatsApp in a new tab
-                window.open(whatsappUrl, '_blank');
-
-                // Show success message
                 contactFormContainer.classList.add('hidden');
                 contactSuccessMessage.classList.remove('hidden');
-                
-                // Automatically close the modal after a few seconds
                 setTimeout(closeContactModal, 3000);
+            });
+
+            // --- Blog Modal ---
+            const blogModal = document.getElementById('blog-modal');
+            const closeBlogBtn = document.getElementById('close-blog-btn');
+            const blogContainer = document.getElementById('blog-container');
+
+            const openBlogModal = async (postId) => {
+                if (!postId) return;
+
+                // Fetch post and gallery data in parallel
+                const [postRes, galleryRes] = await Promise.all([
+                    db.from('blog_posts').select('*').eq('id', postId).single(),
+                    db.from('gallery_items').select('image_url, alt_text').order('created_at', { ascending: false }).limit(6)
+                ]);
+
+                if (postRes.error || !postRes.data) {
+                    console.error('Error fetching blog post for modal:', postRes.error?.message);
+                    return;
+                }
+
+                const post = postRes.data;
+                const galleryItems = galleryRes.data || [];
+
+                // Populate Modal Content
+                document.getElementById('blog-modal-image').src = post.image_url;
+                document.getElementById('blog-modal-image').alt = post.title;
+                document.getElementById('blog-modal-title').textContent = post.title;
+                document.getElementById('blog-modal-subtitle').textContent = post.subtitle;
+                document.getElementById('blog-modal-content').innerHTML = post.content.replace(/\n/g, '<br>');
+
+                // Populate Mini Gallery
+                const galleryContainer = document.getElementById('blog-modal-gallery');
+                galleryContainer.innerHTML = galleryItems.map(item => `
+                    <div class="flex-shrink-0">
+                        <img src="${item.image_url}" alt="${item.alt_text}" class="h-24 w-auto rounded object-cover">
+                    </div>
+                `).join('');
+                
+                // Show Modal
+                blogModal.classList.remove('hidden');
+                blogModal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+                lucide.createIcons();
+            };
+
+            const closeBlogModal = () => {
+                blogModal.classList.add('hidden');
+                blogModal.classList.remove('flex');
+                document.body.style.overflow = '';
+            };
+
+            blogContainer.addEventListener('click', e => {
+                const readMoreLink = e.target.closest('.read-more-trigger');
+                if (readMoreLink) {
+                    e.preventDefault();
+                    const postId = readMoreLink.dataset.id;
+                    openBlogModal(postId);
+                }
+            });
+
+            closeBlogBtn.addEventListener('click', closeBlogModal);
+            blogModal.addEventListener('click', (e) => {
+                if (e.target === blogModal) closeBlogModal();
             });
 
 
@@ -1155,6 +1212,7 @@
             const openCmsModal = () => {
                 cmsModal.classList.remove('hidden');
                 cmsModal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
                 loadAdminData();
                 lucide.createIcons();
             }
@@ -1162,6 +1220,7 @@
             const closeCmsModal = () => {
                 cmsModal.classList.add('hidden');
                 cmsModal.classList.remove('flex');
+                document.body.style.overflow = '';
             }
 
             closePasswordBtn.addEventListener('click', closePasswordModal);
@@ -1178,7 +1237,6 @@
             passwordForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const password = passwordInput.value;
-                // IMPORTANT: This user must be created in your Supabase Auth dashboard.
                 const adminEmail = 'admin@orionphotography.com'; 
                 
                 const { data, error } = await db.auth.signInWithPassword({
