@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -11,7 +12,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@300;400;500&family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -48,6 +49,10 @@
         
         .font-serif {
             font-family: 'Playfair Display', serif;
+        }
+
+        .font-script {
+            font-family: 'Dancing Script', cursive;
         }
         
         h1, h2, h3, h4 {
@@ -161,6 +166,25 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        @keyframes text-pop-in {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            80% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .reveal.visible .animated-phrase {
+            animation: text-pop-in 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+
 
         /* Custom Button Style */
         .btn {
@@ -483,6 +507,26 @@
                 </div>
                 <div id="gallery-container" class="flex items-start gap-4 lg:gap-6 overflow-x-auto pb-4 reveal portfolio-scroll-container">
                     <!-- Gallery items will be loaded here from Supabase -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Animated Phrases Section -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-4 text-center">
+                    <div class="reveal">
+                        <h3 class="text-4xl lg:text-5xl font-script text-[var(--color-text-dark)] animated-phrase" style="animation-delay: 0.2s;">Forever mine</h3>
+                    </div>
+                    <div class="reveal" style="transition-delay: 0.15s;">
+                        <h3 class="text-4xl lg:text-5xl font-script text-[var(--color-text-dark)] animated-phrase" style="animation-delay: 0.4s;">Hold hands</h3>
+                    </div>
+                    <div class="reveal" style="transition-delay: 0.3s;">
+                        <h3 class="text-4xl lg:text-5xl font-script text-[var(--color-text-dark)] animated-phrase" style="animation-delay: 0.6s;">Love birds</h3>
+                    </div>
+                    <div class="reveal" style="transition-delay: 0.45s;">
+                        <h3 class="text-4xl lg:text-5xl font-script text-[var(--color-text-dark)] animated-phrase" style="animation-delay: 0.8s;">Shared absurd</h3>
+                    </div>
                 </div>
             </div>
         </section>
@@ -916,11 +960,12 @@
             const container = document.getElementById('gallery-container');
             if (!container) return;
             container.innerHTML = items.map(item => `
-                <div class="relative flex-shrink-0 group gallery-item rounded-lg overflow-hidden cursor-pointer">
-                    <img class="h-80 md:h-96 w-auto object-cover transition-transform duration-300 group-hover:scale-105" src="${item.image_url}" alt="${item.alt_text}">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div class="absolute bottom-0 left-0 p-4 w-full">
-                        <p class="text-white text-sm font-medium translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">${item.alt_text}</p>
+                <div class="flex-shrink-0 w-72 group gallery-item cursor-pointer">
+                    <div class="overflow-hidden rounded-lg">
+                        <img class="h-96 w-full object-cover transition-transform duration-300 group-hover:scale-95" src="${item.image_url}" alt="${item.alt_text}">
+                    </div>
+                    <div class="pt-4 text-center">
+                        <p class="text-sm font-medium text-[var(--color-text-dark)]">${item.alt_text}</p>
                     </div>
                 </div>
             `).join('');
@@ -1624,3 +1669,5 @@
     </script>
 </body>
 </html>
+
+
